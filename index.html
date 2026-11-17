@@ -139,6 +139,66 @@
     .onde dl { grid-template-columns: repeat(3, 1fr); gap: 40px; }
   }
 
+  /* Menu (só em telas largas) */
+  .menu { display: none; }
+  @media (min-width: 980px) {
+    .menu { display: flex; gap: 28px; list-style: none; padding: 0; font-size: 0.95rem; }
+    .menu a { text-decoration: none; color: var(--tinta-suave); }
+    .menu a:hover { color: var(--cobre-escuro); }
+  }
+
+  /* Sobre */
+  .sobre { background: var(--rose); padding: 72px 0; }
+  .sobre .faixa { display: grid; gap: 28px; }
+  .sobre p { max-width: 52ch; color: var(--tinta-suave); margin-top: 16px; }
+  .sobre ul { list-style: none; padding: 0; display: grid; gap: 14px; align-content: start; }
+  .sobre li { display: flex; gap: 12px; align-items: flex-start; font-weight: 500; }
+  .sobre li svg { flex: none; width: 22px; height: 22px; margin-top: 2px; color: var(--cobre); }
+  @media (min-width: 820px) {
+    .sobre { padding: 104px 0; }
+    .sobre .faixa { grid-template-columns: 1.2fr 0.8fr; gap: 72px; align-items: center; }
+  }
+
+  /* Passos */
+  .passos { padding: 72px 0; }
+  .passos ol { list-style: none; padding: 0; margin-top: 36px; display: grid; gap: 14px; counter-reset: passo; }
+  .passos li { counter-increment: passo; background: #fff; border: 1.5px solid var(--rose-forte); border-radius: 22px; padding: 26px 24px; }
+  .passos li::before { content: counter(passo); display: block; font-family: var(--display); font-style: italic; font-size: 2.6rem; line-height: 1; color: var(--cobre); margin-bottom: 10px; }
+  .passos h3 { font-family: var(--texto); font-weight: 600; font-size: 1.1rem; letter-spacing: 0; margin-bottom: 6px; }
+  .passos p { color: var(--tinta-suave); }
+  @media (min-width: 820px) {
+    .passos { padding: 104px 0; }
+    .passos ol { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  }
+
+  /* Dúvidas */
+  .duvidas { padding: 72px 0; }
+  .duvidas .faixa { display: grid; gap: 28px; }
+  .duvidas .apoio { margin-top: 14px; color: var(--tinta-suave); max-width: 36ch; }
+  .duvidas details { border-bottom: 1px solid var(--rose-forte); padding: 20px 2px; }
+  .duvidas details:first-of-type { border-top: 1px solid var(--rose-forte); }
+  .duvidas summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; font-weight: 600; }
+  .duvidas summary::-webkit-details-marker { display: none; }
+  .duvidas summary::after { content: "+"; font-size: 1.6rem; font-weight: 400; line-height: 1; color: var(--cobre); }
+  .duvidas details[open] summary::after { content: "−"; }
+  .duvidas details p { margin-top: 12px; color: var(--tinta-suave); max-width: 60ch; }
+  @media (min-width: 820px) {
+    .duvidas { padding: 104px 0; }
+    .duvidas .faixa { grid-template-columns: 0.8fr 1.2fr; gap: 72px; }
+  }
+
+  /* Nome e aviso no pedido de consulta */
+  .campo { display: grid; gap: 8px; margin-top: 26px; max-width: 420px; }
+  .campo label { font-weight: 600; }
+  .campo input { font: inherit; padding: 13px 16px; border-radius: 14px; border: 1.5px solid var(--rose-forte); background: #fff; color: var(--tinta); }
+  .campo input:focus { outline: 3px solid var(--cobre); outline-offset: 2px; }
+  .aviso { margin-top: 18px; font-size: 0.9rem; color: var(--tinta-suave); max-width: 46ch; }
+
+  /* Botão fixo do WhatsApp */
+  .zap-fixo { position: fixed; right: 18px; bottom: 18px; z-index: 6; width: 58px; height: 58px; border-radius: 50%; background: var(--cobre); color: #fff; display: grid; place-items: center; box-shadow: 0 12px 28px rgba(51, 36, 31, 0.28); }
+  .zap-fixo:hover { background: var(--cobre-escuro); }
+  .zap-fixo svg { width: 28px; height: 28px; }
+
   footer { padding: 34px 0 44px; font-size: 0.92rem; color: var(--tinta-suave); }
   footer .faixa { display: grid; gap: 8px; }
 </style>
@@ -150,6 +210,12 @@
 <header class="topo">
   <div class="faixa">
     <a class="marca" href="#inicio"><img src="assets/marca.png" alt="" width="40" height="40"><span class="marca-texto"><b>Andrea Salomão</b><span>Médica | CRM-RJ 120923-0</span></span></a>
+    <ul class="menu">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#cuidados">Cuidados</a></li>
+      <li><a href="#duvidas">Dúvidas</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
     <a class="botao" href="#agendar">Agendar consulta</a>
   </div>
 </header>
@@ -193,6 +259,11 @@
             <label><input type="radio" name="periodo" value="em qualquer período"><span>Tanto faz</span></label>
           </div>
         </fieldset>
+        <div class="campo">
+          <label for="nome">Como você se chama? <span style="font-weight:400">(opcional)</span></label>
+          <input id="nome" name="nome" autocomplete="given-name" placeholder="Seu nome">
+        </div>
+        <p class="aviso">Não precisa contar detalhes de saúde por aqui. Isso fica para a consulta.</p>
       </form>
       <aside class="conversa" aria-live="polite">
         <small>Sua mensagem vai assim:</small>
@@ -202,7 +273,22 @@
     </div>
   </section>
 
-  <section class="cuidados">
+  <section class="sobre" id="sobre">
+    <div class="faixa">
+      <div>
+        <h2>Cuidado que começa <em>pela escuta.</em></h2>
+        <p>Sou a Dra. Andrea Salomão, médica dedicada à saúde da mulher: saúde íntima, contracepção, sexualidade e bem-estar.</p>
+        <p>Acredito em cuidado individual e personalizado, com informação clara para que cada mulher faça escolhas seguras sobre o próprio corpo.</p>
+      </div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Atendimento individual e personalizado</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Informação clara e escolhas seguras</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Participação no 50º Congresso da SGORJ, em 2026</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cuidados" id="cuidados">
     <div class="faixa">
       <h2>Do que a gente cuida <em>na consulta.</em></h2>
       <ul class="lista">
@@ -211,6 +297,18 @@
         <li><h3>Sexualidade</h3><p>Um espaço para tirar dúvidas e falar do que incomoda, com informação e escolhas seguras.</p></li>
         <li><h3>Bem-estar</h3><p>Cuidado que olha para a rotina e para cada fase da vida da mulher.</p></li>
       </ul>
+    </div>
+  </section>
+
+  <section class="passos">
+    <div class="faixa">
+      <h2>Da primeira mensagem <em>ao acompanhamento.</em></h2>
+      <ol>
+        <li><h3>Agendamento</h3><p>Você monta o pedido aqui no site e combina o horário pelo WhatsApp.</p></li>
+        <li><h3>Consulta</h3><p>Conversa sobre o que você sente, sua rotina e seu histórico.</p></li>
+        <li><h3>Plano de cuidado</h3><p>Orientações pensadas para o seu caso, explicadas com clareza.</p></li>
+        <li><h3>Acompanhamento</h3><p>Retornos para ajustar o que for preciso ao longo do tempo.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -235,18 +333,51 @@
     </div>
   </section>
 
-  <section class="onde">
+  <section class="duvidas" id="duvidas">
+    <div class="faixa">
+      <div>
+        <h2>Dúvidas <em>mais comuns.</em></h2>
+        <p class="apoio">Não achou a sua? Fale direto com a Dra. Andrea pelo WhatsApp.</p>
+      </div>
+      <div>
+        <details open>
+          <summary>Como faço para agendar?</summary>
+          <p>Escolha o assunto e o período no pedido de consulta. A mensagem já chega pronta no WhatsApp e você só combina o horário.</p>
+        </details>
+        <details>
+          <summary>O que levar na primeira consulta?</summary>
+          <p>Exames recentes, se tiver, e a lista dos medicamentos e métodos contraceptivos que você usa.</p>
+        </details>
+        <details>
+          <summary>O atendimento é particular ou por convênio?</summary>
+          <p><span class="pendente">a confirmar com a Dra. Andrea</span></p>
+        </details>
+        <details>
+          <summary>Tem consulta online?</summary>
+          <p>Consulte a disponibilidade diretamente pelo WhatsApp.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="onde" id="contato">
     <div class="faixa">
       <h2>Onde e como <em>é o atendimento.</em></h2>
       <dl>
         <div><dt>Consultório</dt><dd><span class="pendente">endereço a confirmar</span><br>Rio de Janeiro, RJ</dd></div>
         <div><dt>Horários</dt><dd><span class="pendente">dias e horários a confirmar</span></dd></div>
         <div><dt>Atendimento</dt><dd><span class="pendente">particular, convênio ou online: a confirmar</span></dd></div>
+        <div><dt>WhatsApp</dt><dd><a href="#agendar">(21) 96642-8116</a></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></dd></div>
       </dl>
       <a class="botao" href="#agendar">Agendar consulta</a>
     </div>
   </section>
 </main>
+
+<a class="zap-fixo" href="#agendar" aria-label="Agendar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+</a>
 
 <footer>
   <div class="faixa">
@@ -264,12 +395,14 @@
     function montar() {
       var assunto = form.elements.assunto.value;
       var periodo = form.elements.periodo.value;
-      var msg = "Olá, Dra. Andrea! Vim pelo seu site e gostaria de agendar uma consulta sobre " + assunto +
+      var nome = form.elements.nome.value.trim();
+      var msg = "Olá, Dra. Andrea! " + (nome ? "Meu nome é " + nome + ". " : "") + "Vim pelo seu site e gostaria de agendar uma consulta sobre " + assunto +
         ". Tenho preferência por atendimento " + periodo + ". Pode me passar os horários disponíveis?";
       previa.textContent = msg;
       enviar.href = "https://wa.me/5521966428116?text=" + encodeURIComponent(msg);
     }
     form.addEventListener("change", montar);
+    form.addEventListener("input", montar);
     montar();
   })();
 </script>
