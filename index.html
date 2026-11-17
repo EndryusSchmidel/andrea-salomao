@@ -113,18 +113,37 @@
     .lista h3 { font-size: 2rem; }
   }
 
-  /* Conteúdos */
+  /* Conteúdos: um story por vez */
   .conteudos { padding: 72px 0; }
-  .grade { margin-top: 32px; display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
-  .grade figure { margin: 0; }
-  .grade figure:first-child { grid-column: 1 / -1; }
-  .grade img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; }
-  .grade figcaption { margin-top: 10px; font-size: 0.95rem; color: var(--tinta-suave); }
-  .seguir { display: inline-block; margin-top: 28px; font-weight: 600; color: var(--cobre-escuro); }
+  .conteudos .faixa { display: grid; gap: 28px; }
+  .story { position: relative; width: min(100%, 360px); aspect-ratio: 9 / 16; margin-inline: auto; border-radius: 26px; overflow: hidden; background: var(--tinta); box-shadow: 0 24px 50px rgba(51, 36, 31, 0.22); }
+  .story-item { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 0.45s ease; }
+  .story-item.ativo { opacity: 1; }
+  .story-item .fundo { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; filter: blur(26px) brightness(0.72); }
+  .story-item .frente { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .story-barras { position: absolute; z-index: 3; top: 12px; left: 12px; right: 12px; display: flex; gap: 6px; }
+  .story-barras i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.4); overflow: hidden; }
+  .story-barras b { display: block; height: 100%; width: 0; background: #fff; }
+  .story-barras i.visto b { width: 100%; }
+  .story-barras i.tocando b { width: 100%; transition: width var(--story-tempo, 5s) linear; }
+  .story-nav { position: absolute; z-index: 2; top: 0; bottom: 0; width: 50%; border: 0; background: none; cursor: pointer; }
+  .story-nav.anterior { left: 0; }
+  .story-nav.proxima { right: 0; }
+  .story-nav:focus-visible { outline: 3px solid #fff; outline-offset: -6px; border-radius: 26px; }
+  .story-rodape { text-align: center; }
+  .story-legenda { min-height: 3.2em; font-size: 1.1rem; color: var(--tinta-suave); max-width: 34ch; margin-inline: auto; }
+  .seguir { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--cobre-escuro); }
   @media (min-width: 820px) {
     .conteudos { padding: 104px 0; }
-    .grade { grid-template-columns: repeat(3, 1fr); gap: 24px; }
-    .grade figure:first-child { grid-column: auto; }
+    .conteudos .faixa { grid-template-columns: 1fr auto; grid-template-areas: "titulo story" "rodape story"; column-gap: 72px; row-gap: 20px; }
+    .conteudos-titulo { grid-area: titulo; align-self: end; }
+    .story { grid-area: story; width: 340px; }
+    .story-rodape { grid-area: rodape; align-self: start; text-align: left; }
+    .story-legenda { margin-inline: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .story-item { transition: none; }
+    .story-barras i.tocando b { transition: none; }
   }
 
   /* Onde */
@@ -180,7 +199,8 @@
   .duvidas summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 16px; align-items: center; font-weight: 600; }
   .duvidas summary::-webkit-details-marker { display: none; }
   .duvidas summary::after { content: "+"; font-size: 1.6rem; font-weight: 400; line-height: 1; color: var(--cobre); }
-  .duvidas details[open] summary::after { content: "−"; }
+  .duvidas summary::after { transition: transform 0.25s ease; }
+  .duvidas details[open]:not(.fechando) summary::after { transform: rotate(45deg); }
   .duvidas details p { margin-top: 12px; color: var(--tinta-suave); max-width: 60ch; }
   @media (min-width: 820px) {
     .duvidas { padding: 104px 0; }
@@ -314,22 +334,28 @@
 
   <section class="conteudos">
     <div class="faixa">
-      <h2>Informação que ela compartilha <em>no dia a dia.</em></h2>
-      <div class="grade">
-        <figure>
-          <img src="assets/congresso-sgorj.jpg" alt="Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ">
-          <figcaption>Participação no 50º Congresso da SGORJ, em setembro de 2026.</figcaption>
+      <h2 class="conteudos-titulo">Informação que ela compartilha <em>no dia a dia.</em></h2>
+      <div class="story" id="story" role="group" aria-roledescription="carrossel" aria-label="Publicações da Dra. Andrea">
+        <div class="story-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+        <figure class="story-item ativo" data-legenda="Participação no 50º Congresso da SGORJ, em setembro de 2026.">
+          <img class="fundo" src="assets/congresso-sgorj.jpg" alt="" aria-hidden="true">
+          <img class="frente" src="assets/congresso-sgorj.jpg" alt="Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ">
         </figure>
-        <figure>
-          <img src="assets/post-cuidado-intimo.jpg" alt="Publicação sobre cuidados com a região íntima">
-          <figcaption>Skincare íntimo: por onde começar.</figcaption>
+        <figure class="story-item" data-legenda="Skincare íntimo: por onde começar.">
+          <img class="fundo" src="assets/post-cuidado-intimo.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="frente" src="assets/post-cuidado-intimo.jpg" alt="Publicação sobre cuidados com a região íntima" loading="lazy">
         </figure>
-        <figure>
-          <img src="assets/post-implanon.jpg" alt="Publicação sobre a nova duração do implante contraceptivo">
-          <figcaption>Implante contraceptivo: o que mudou no prazo.</figcaption>
+        <figure class="story-item" data-legenda="Implante contraceptivo: o que mudou no prazo.">
+          <img class="fundo" src="assets/post-implanon.jpg" alt="" aria-hidden="true" loading="lazy">
+          <img class="frente" src="assets/post-implanon.jpg" alt="Publicação sobre a nova duração do implante contraceptivo" loading="lazy">
         </figure>
+        <button type="button" class="story-nav anterior" id="story-anterior" aria-label="Publicação anterior"></button>
+        <button type="button" class="story-nav proxima" id="story-proxima" aria-label="Próxima publicação"></button>
       </div>
-      <a class="seguir" href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">Acompanhar @deiasalomao no Instagram</a>
+      <div class="story-rodape">
+        <p class="story-legenda" id="story-legenda" aria-live="polite"></p>
+        <a class="seguir" href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">Acompanhar @deiasalomao no Instagram</a>
+      </div>
     </div>
   </section>
 
@@ -404,6 +430,78 @@
     form.addEventListener("change", montar);
     form.addEventListener("input", montar);
     montar();
+  })();
+
+  // Dúvidas: abre e fecha com animação suave
+  (function () {
+    var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)");
+    document.querySelectorAll(".duvidas details").forEach(function (d) {
+      var titulo = d.querySelector("summary");
+      var resposta = d.querySelector("p");
+      var anim = null;
+      titulo.addEventListener("click", function (e) {
+        if (semMovimento.matches || !d.animate) return;
+        e.preventDefault();
+        var abrindo = !d.open || d.classList.contains("fechando");
+        var inicio = d.offsetHeight;
+        if (anim) anim.cancel();
+        d.classList.toggle("fechando", !abrindo);
+        d.open = true;
+        var cs = getComputedStyle(d);
+        var fim = abrindo ? d.offsetHeight : titulo.offsetHeight + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+        d.style.overflow = "hidden";
+        anim = d.animate({ height: [inicio + "px", fim + "px"] }, { duration: 320, easing: "cubic-bezier(.4,0,.2,1)" });
+        resposta.animate({ opacity: abrindo ? [0, 1] : [1, 0] }, { duration: abrindo ? 320 : 180, easing: "ease", fill: "forwards" });
+        anim.onfinish = function () {
+          if (!abrindo) { d.open = false; d.classList.remove("fechando"); }
+          d.style.overflow = "";
+          anim = null;
+        };
+      });
+    });
+  })();
+
+  // Stories: uma publicação por vez, com legenda embaixo
+  (function () {
+    var story = document.getElementById("story");
+    var itens = story.querySelectorAll(".story-item");
+    var barras = story.querySelectorAll(".story-barras i");
+    var legenda = document.getElementById("story-legenda");
+    var TEMPO = 5000;
+    var atual = 0, relogio = null, visivel = false;
+    var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    story.style.setProperty("--story-tempo", TEMPO + "ms");
+
+    function mostrar(n) {
+      atual = (n + itens.length) % itens.length;
+      itens.forEach(function (it, i) { it.classList.toggle("ativo", i === atual); });
+      barras.forEach(function (b, i) {
+        b.classList.remove("tocando");
+        b.classList.toggle("visto", i < atual);
+      });
+      legenda.textContent = itens[atual].getAttribute("data-legenda");
+      agendar();
+    }
+    function agendar() {
+      clearTimeout(relogio);
+      if (semMovimento || !visivel) { barras[atual].classList.add("visto"); return; }
+      void barras[atual].offsetWidth; // reinicia a barra
+      barras[atual].classList.add("tocando");
+      relogio = setTimeout(function () { mostrar(atual + 1); }, TEMPO);
+    }
+    document.getElementById("story-proxima").addEventListener("click", function () { mostrar(atual + 1); });
+    document.getElementById("story-anterior").addEventListener("click", function () { mostrar(atual - 1); });
+    story.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") mostrar(atual + 1);
+      if (e.key === "ArrowLeft") mostrar(atual - 1);
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        visivel = es[0].isIntersecting;
+        if (visivel) mostrar(atual); else clearTimeout(relogio);
+      }, { threshold: 0.5 }).observe(story);
+    } else { visivel = true; }
+    mostrar(0);
   })();
 </script>
 </body>
