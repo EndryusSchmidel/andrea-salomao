@@ -20,7 +20,7 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --creme: #fbf6f1;
@@ -32,7 +32,7 @@
     --verde-escuro: #8ca288;
     --tinta: #33241f;
     --tinta-suave: #6b5850;
-    --display: "Bodoni Moda", "Times New Roman", serif;
+    --display: "Cormorant Garamond", "Times New Roman", serif;
     --texto: "Figtree", system-ui, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; }
@@ -284,6 +284,47 @@
     .agendar, .cuidados, .conteudos, .sobre, .passos, .duvidas { padding: 120px 0; }
     .onde { padding: 112px 0; }
   }
+
+  /* Títulos: Cormorant Garamond em peso médio, menos contraste que a Bodoni */
+  h1, h2, h3 { font-weight: 500; letter-spacing: -0.005em; line-height: 1.04; }
+  h2 em, h1 em, .lista h3 { font-weight: 500; }
+  h2 { font-size: clamp(2.3rem, 6vw, 3.5rem); }
+  .abertura h1 { font-size: clamp(3.1rem, 11vw, 6.2rem); }
+  .lista h3 { font-size: 1.95rem; }
+  @media (min-width: 820px) { .lista h3 { font-size: 2.3rem; } }
+  .passos li::before { font-weight: 500; font-size: 2.6rem; }
+
+  /* Fundos na nova ordem: linho e areia se alternando */
+  .botao.contorno { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1px var(--tinta); margin-left: 10px; }
+  .botao.contorno:hover { background: var(--tinta); color: var(--creme); }
+  @media (max-width: 480px) { .botao.contorno { margin: 12px 0 0; } }
+  .conteudos { background: var(--rose); }
+  .agendar { background: var(--rose); }
+  .agendar .conversa { background: var(--creme); }
+  .onde { background: var(--creme); }
+
+  /* Formas arredondadas, mais delicadas */
+  .botao { border-radius: 999px; }
+  .opcoes span { border-radius: 999px; }
+  .campo input { border-radius: 14px; }
+  .conversa { border-radius: 22px; }
+  .pendente { border-radius: 8px; }
+
+  /* Revisão geral */
+  .acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .abertura p { margin-bottom: 30px; }
+  .botao.contorno { margin: 0; }
+  @media (max-width: 480px) { .acoes { flex-direction: column; align-items: stretch; } .acoes .botao { width: 100%; } }
+  .retrato { width: 200px; }
+  @media (min-width: 820px) { .retrato { width: 320px; } }
+  .marca-nome { height: 20px; }
+  .marca-simbolo { height: 50px; }
+  @media (max-width: 420px) { .marca-nome { height: 15px; } .marca-simbolo { height: 40px; } }
+  .passos li::before { font-style: normal; font-weight: 500; color: var(--cobre); }
+  .retrato { margin: 10px; }
+  @media (min-width: 820px) { .retrato { margin: 10px 10px 10px 0; } }
+  .sobre .faixa { align-items: start; }
+  @media (min-width: 820px) { .sobre ul { padding-top: 14px; } }
 </style>
 </head>
 <body>
@@ -310,49 +351,15 @@
       <div>
         <h1>Apaixonada pela <em>saúde da mulher.</em></h1>
         <p>Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado.</p>
+        <div class="acoes">
         <a class="botao" href="#agendar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
           Agendar pelo WhatsApp
         </a>
+        <a class="botao contorno" href="#sobre">Conhecer a Dra. Andrea</a>
+        </div>
         <div class="registro">Dra. Andrea Salomão | Médica | CRM-RJ 120923-0</div>
       </div>
-    </div>
-  </section>
-
-  <section class="agendar" id="agendar">
-    <div class="faixa">
-      <form id="form-agendar">
-        <h2>Monte seu pedido de consulta <em>em poucos toques.</em></h2>
-        <p class="apoio">Escolha o assunto e o período. A mensagem já chega pronta no WhatsApp da Dra. Andrea, e você só confirma o melhor horário.</p>
-        <fieldset>
-          <legend>Sobre o que você quer conversar?</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="assunto" value="saúde íntima" checked><span>Saúde íntima</span></label>
-            <label><input type="radio" name="assunto" value="contracepção"><span>Contracepção</span></label>
-            <label><input type="radio" name="assunto" value="sexualidade"><span>Sexualidade</span></label>
-            <label><input type="radio" name="assunto" value="bem-estar"><span>Bem-estar</span></label>
-            <label><input type="radio" name="assunto" value="outro assunto"><span>Outro assunto</span></label>
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Qual período é melhor para você?</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="periodo" value="de manhã" checked><span>Manhã</span></label>
-            <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
-            <label><input type="radio" name="periodo" value="em qualquer período"><span>Tanto faz</span></label>
-          </div>
-        </fieldset>
-        <div class="campo">
-          <label for="nome">Como você se chama? <span style="font-weight:400">(opcional)</span></label>
-          <input id="nome" name="nome" autocomplete="given-name" placeholder="Seu nome">
-        </div>
-        <p class="aviso">Não precisa contar detalhes de saúde por aqui. Isso fica para a consulta.</p>
-      </form>
-      <aside class="conversa" aria-live="polite">
-        <small>Sua mensagem vai assim:</small>
-        <div class="balao" id="previa-msg"></div>
-        <a class="botao verde" id="enviar" target="_blank" rel="noopener" href="https://wa.me/5521966428116">Enviar no WhatsApp</a>
-      </aside>
     </div>
   </section>
 
@@ -373,7 +380,7 @@
 
   <section class="cuidados" id="cuidados">
     <div class="faixa">
-      <h2>Do que a gente cuida <em>na consulta.</em></h2>
+      <h2>Os temas <em>da consulta.</em></h2>
       <ul class="lista">
         <li><h3>Saúde íntima</h3><p>A pele da vulva também merece atenção, entendendo o que o seu corpo realmente precisa, de forma individual e personalizada.</p></li>
         <li><h3>Contracepção</h3><p>Orientação para escolher e acompanhar o método, incluindo o implante contraceptivo e os prazos de troca.</p></li>
@@ -454,6 +461,43 @@
           <p>Consulte a disponibilidade diretamente pelo WhatsApp.</p>
         </details>
       </div>
+    </div>
+  </section>
+
+  <section class="agendar" id="agendar">
+    <div class="faixa">
+      <form id="form-agendar">
+        <h2>Monte seu pedido de consulta <em>em poucos toques.</em></h2>
+        <p class="apoio">Escolha o assunto e o período. A mensagem já chega pronta no WhatsApp da Dra. Andrea, e você só confirma o melhor horário.</p>
+        <fieldset>
+          <legend>Sobre o que você quer conversar?</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="assunto" value="saúde íntima" checked><span>Saúde íntima</span></label>
+            <label><input type="radio" name="assunto" value="contracepção"><span>Contracepção</span></label>
+            <label><input type="radio" name="assunto" value="sexualidade"><span>Sexualidade</span></label>
+            <label><input type="radio" name="assunto" value="bem-estar"><span>Bem-estar</span></label>
+            <label><input type="radio" name="assunto" value="outro assunto"><span>Outro assunto</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Qual período é melhor para você?</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="periodo" value="de manhã" checked><span>Manhã</span></label>
+            <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
+            <label><input type="radio" name="periodo" value="em qualquer período"><span>Tanto faz</span></label>
+          </div>
+        </fieldset>
+        <div class="campo">
+          <label for="nome">Como você se chama? <span style="font-weight:400">(opcional)</span></label>
+          <input id="nome" name="nome" autocomplete="given-name" placeholder="Seu nome">
+        </div>
+        <p class="aviso">Não precisa contar detalhes de saúde por aqui. Isso fica para a consulta.</p>
+      </form>
+      <aside class="conversa" aria-live="polite">
+        <small>Sua mensagem vai assim:</small>
+        <div class="balao" id="previa-msg"></div>
+        <a class="botao verde" id="enviar" target="_blank" rel="noopener" href="https://wa.me/5521966428116">Enviar no WhatsApp</a>
+      </aside>
     </div>
   </section>
 
