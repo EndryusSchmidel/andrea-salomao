@@ -385,6 +385,28 @@
   .dd-lista li[aria-selected="true"] { color: var(--cobre-escuro); font-weight: 500; }
   .dd-lista li[aria-selected="true"]::after { content: ""; flex: none; width: 6px; height: 11px; margin-top: -3px; border-right: 1.5px solid var(--cobre); border-bottom: 1.5px solid var(--cobre); transform: rotate(45deg); }
   @media (prefers-reduced-motion: reduce) { .dd-lista, .dd-seta, .dd-botao { transition: none; } }
+
+  /* Rodapé no mesmo verde escuro do topo, logo em rosé claro */
+  footer { background: #343a31; border-top: 0; color: rgba(246, 242, 236, 0.82); }
+
+  /* Onde: texto à esquerda, cartão de informações à direita (como o do Dr. Victor) */
+  .onde .faixa { display: grid; gap: 36px; }
+  .onde .apoio { margin: 16px 0 28px; max-width: 40ch; color: var(--tinta-suave); }
+  .onde .botao { margin-top: 0; }
+  .info-cartao { list-style: none; margin: 0; padding: 8px 26px; background: #fff; border: 1px solid var(--rose-forte); border-radius: 22px; }
+  .info-cartao li { display: flex; gap: 16px; align-items: flex-start; padding: 18px 0; }
+  .info-cartao li + li { border-top: 1px solid var(--rose-forte); }
+  .info-ic { flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--rose); color: var(--cobre); }
+  .info-ic svg { width: 20px; height: 20px; }
+  .info-cartao strong { display: block; font-weight: 500; margin-bottom: 2px; }
+  .info-cartao div > span, .info-cartao div > a { display: block; color: var(--tinta-suave); }
+  .info-cartao div > a { color: var(--cobre-escuro); text-decoration: none; }
+  .info-cartao a:hover { text-decoration: underline; }
+  .a-confirmar { font-style: italic; }
+  @media (min-width: 820px) {
+    .onde .faixa { grid-template-columns: 0.9fr 1.1fr; gap: 72px; align-items: center; }
+    .info-cartao { padding: 10px 34px; }
+  }
 </style>
 </head>
 <body>
@@ -574,15 +596,18 @@
 
   <section class="onde" id="contato">
     <div class="faixa">
-      <h2>Onde e como <em>é o atendimento.</em></h2>
-      <dl>
-        <div><dt>Consultório</dt><dd><span class="pendente">endereço a confirmar</span><br>Rio de Janeiro, RJ</dd></div>
-        <div><dt>Horários</dt><dd><span class="pendente">dias e horários a confirmar</span></dd></div>
-        <div><dt>Atendimento</dt><dd><span class="pendente">particular, convênio ou online: a confirmar</span></dd></div>
-        <div><dt>WhatsApp</dt><dd><a href="#agendar">(21) 96642-8116</a></dd></div>
-        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></dd></div>
-      </dl>
-      <a class="botao" href="#agendar">Agendar consulta</a>
+      <div class="onde-texto">
+        <h2>Onde e como <em>é o atendimento.</em></h2>
+        <p class="apoio">Consultas com hora marcada no Rio de Janeiro. Se tiver qualquer dúvida antes de agendar, é só chamar no WhatsApp.</p>
+        <a class="botao" href="#agendar">Agendar consulta</a>
+      </div>
+      <ul class="info-cartao">
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>Consultório</strong><span class="a-confirmar">Endereço a confirmar</span><span>Rio de Janeiro, RJ</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>Horários</strong><span class="a-confirmar">Dias e horários a confirmar</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><div><strong>Atendimento</strong><span class="a-confirmar">Particular, convênio ou online: a confirmar</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><div><strong>WhatsApp</strong><a href="https://wa.me/5521966428116?text=Ol%C3%A1%2C%20Dra.%20Andrea!%20Vim%20pelo%20seu%20site." target="_blank" rel="noopener">(21) 96642-8116</a></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></span><div><strong>Instagram</strong><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></div></li>
+      </ul>
     </div>
   </section>
 </main>
@@ -594,8 +619,8 @@
 <footer>
   <div class="faixa">
     <div class="rodape-logo">
-      <img src="assets/logo-simbolo.png" alt="" width="220" height="360">
-      <img src="assets/logo-nome-lema.png" alt="Andrea Salomão: saúde feminina, sexualidade e bem-estar" width="861" height="150">
+      <img src="assets/logo-simbolo-claro.png" alt="" width="220" height="360">
+      <img src="assets/logo-nome-lema-claro.png" alt="Andrea Salomão: saúde feminina, sexualidade e bem-estar" width="861" height="150">
     </div>
     <div>Dra. Andrea Salomão | Médica | CRM-RJ 120923-0</div>
     <div>As informações deste site têm caráter educativo e não substituem a consulta médica.</div>
