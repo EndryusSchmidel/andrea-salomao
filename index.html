@@ -407,6 +407,23 @@
     .onde .faixa { grid-template-columns: 0.9fr 1.1fr; gap: 72px; align-items: center; }
     .info-cartao { padding: 10px 34px; }
   }
+
+  /* Rodapé no formato do Dr. Victor */
+  footer { padding: 48px 0 32px; text-align: left; font-size: 0.9rem; }
+  footer .faixa { display: block; justify-items: normal; }
+  .rodape-alto { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
+  .rodape-marca { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .rodape-marca img:first-child { height: 56px; width: auto; }
+  .rodape-marca img:last-child { height: auto; width: 230px; }
+  .rodape-links { display: flex; flex-wrap: wrap; gap: 10px 24px; list-style: none; padding: 0; margin: 0; font-size: 0.95rem; }
+  .rodape-links a { color: rgba(246, 242, 236, 0.82); text-decoration: none; }
+  .rodape-links a:hover { color: var(--rose-claro); }
+  .rodape-baixo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(246, 242, 236, 0.14); color: rgba(246, 242, 236, 0.68); font-size: 0.85rem; }
+  .rodape-nota { margin-top: 14px; color: rgba(246, 242, 236, 0.5); font-size: 0.8rem; }
+  @media (max-width: 640px) { footer { padding-bottom: 96px; } .rodape-alto { flex-direction: column; align-items: flex-start; } }
+  .zap-fixo { background: #343a31; color: var(--creme); border: 1px solid rgba(246, 242, 236, 0.16); }
+  .zap-fixo:hover { background: #2b3028; }
+  .zap-fixo svg { width: 28px; height: 28px; }
 </style>
 </head>
 <body>
@@ -435,7 +452,7 @@
         <p>Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado.</p>
         <div class="acoes">
         <a class="botao" href="#agendar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
           Agendar pelo WhatsApp
         </a>
         <a class="botao contorno" href="#sobre">Conhecer a Dra. Andrea</a>
@@ -581,7 +598,7 @@
           <textarea id="msg" name="msg" rows="4" placeholder="Escreva do seu jeito: uma dúvida, o melhor dia para você, o que estiver no seu coração."></textarea>
         </div>
         <button type="submit" class="botao enviar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
           Enviar pelo WhatsApp
         </button>
         <p class="aviso">Escreva só o que se sentir à vontade. Detalhes de saúde podem ficar para a consulta, num ambiente reservado.</p>
@@ -605,7 +622,7 @@
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>Consultório</strong><span class="a-confirmar">Endereço a confirmar</span><span>Rio de Janeiro, RJ</span></div></li>
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>Horários</strong><span class="a-confirmar">Dias e horários a confirmar</span></div></li>
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><div><strong>Atendimento</strong><span class="a-confirmar">Particular, convênio ou online: a confirmar</span></div></li>
-        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg></span><div><strong>WhatsApp</strong><a href="https://wa.me/5521966428116?text=Ol%C3%A1%2C%20Dra.%20Andrea!%20Vim%20pelo%20seu%20site." target="_blank" rel="noopener">(21) 96642-8116</a></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg></span><div><strong>WhatsApp</strong><a href="https://wa.me/5521966428116?text=Ol%C3%A1%2C%20Dra.%20Andrea!%20Vim%20pelo%20seu%20site." target="_blank" rel="noopener">(21) 96642-8116</a></div></li>
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></span><div><strong>Instagram</strong><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></div></li>
       </ul>
     </div>
@@ -613,18 +630,29 @@
 </main>
 
 <a class="zap-fixo" href="#agendar" aria-label="Agendar pelo WhatsApp">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
 </a>
 
 <footer>
   <div class="faixa">
-    <div class="rodape-logo">
-      <img src="assets/logo-simbolo-claro.png" alt="" width="220" height="360">
-      <img src="assets/logo-nome-lema-claro.png" alt="Andrea Salomão: saúde feminina, sexualidade e bem-estar" width="861" height="150">
+    <div class="rodape-alto">
+      <a class="rodape-marca" href="#inicio" aria-label="Dra. Andrea Salomão, voltar ao início">
+        <img src="assets/logo-simbolo-claro.png" alt="" width="220" height="360">
+        <img src="assets/logo-nome-lema-claro.png" alt="Andrea Salomão: saúde feminina, sexualidade e bem-estar" width="861" height="150">
+      </a>
+      <ul class="rodape-links">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#cuidados">Cuidados</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
     </div>
-    <div>Dra. Andrea Salomão | Médica | CRM-RJ 120923-0</div>
-    <div>As informações deste site têm caráter educativo e não substituem a consulta médica.</div>
-    <div>Prévia criada pela Verbinden para avaliação. Ainda não publicada.</div>
+    <div class="rodape-baixo">
+      <span>Dra. Andrea Salomão · Médica · CRM-RJ 120923-0</span>
+      <span>© 2026 Todos os direitos reservados.</span>
+    </div>
+    <p class="rodape-nota">As informações deste site têm caráter educativo e não substituem a consulta médica. Prévia criada pela Verbinden para avaliação.</p>
   </div>
 </footer>
 
