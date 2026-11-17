@@ -113,23 +113,33 @@
     .lista h3 { font-size: 2rem; }
   }
 
-  /* Conteúdos: um story por vez */
+  /* Conteúdos: um story por vez, dentro de um celular */
   .conteudos { padding: 72px 0; }
   .conteudos .faixa { display: grid; gap: 28px; }
-  .story { position: relative; width: min(100%, 360px); aspect-ratio: 9 / 16; margin-inline: auto; border-radius: 26px; overflow: hidden; background: var(--tinta); box-shadow: 0 24px 50px rgba(51, 36, 31, 0.22); }
-  .story-item { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 0.45s ease; }
+  .celular { position: relative; z-index: 0; width: min(100%, 332px); margin-inline: auto; padding: 11px; border-radius: 46px; background: #1d1614; box-shadow: 0 0 0 1.5px #4a3a33, 0 28px 56px rgba(51, 36, 31, 0.28); }
+  .celular::before { content: ""; position: absolute; z-index: 5; top: 22px; left: 50%; width: 84px; height: 22px; margin-left: -42px; border-radius: 12px; background: #1d1614; }
+  .story { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 36px; overflow: hidden; background: var(--tinta); }
+  .story-item { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 0.4s ease; }
   .story-item.ativo { opacity: 1; }
   .story-item .fundo { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; filter: blur(26px) brightness(0.72); }
   .story-item .frente { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-  .story-barras { position: absolute; z-index: 3; top: 12px; left: 12px; right: 12px; display: flex; gap: 6px; }
-  .story-barras i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.4); overflow: hidden; }
-  .story-barras b { display: block; height: 100%; width: 0; background: #fff; }
-  .story-barras i.visto b { width: 100%; }
-  .story-barras i.tocando b { width: 100%; transition: width var(--story-tempo, 5s) linear; }
-  .story-nav { position: absolute; z-index: 2; top: 0; bottom: 0; width: 50%; border: 0; background: none; cursor: pointer; }
-  .story-nav.anterior { left: 0; }
-  .story-nav.proxima { right: 0; }
-  .story-nav:focus-visible { outline: 3px solid #fff; outline-offset: -6px; border-radius: 26px; }
+  .story-topo { position: absolute; z-index: 3; top: 0; left: 0; right: 0; padding: 52px 14px 34px; background: linear-gradient(180deg, rgba(20, 14, 12, 0.72) 0%, rgba(20, 14, 12, 0) 100%); pointer-events: none; }
+  .story-barras { display: flex; gap: 5px; }
+  .story-barras i { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, 0.38); overflow: hidden; }
+  .story-barras b { display: block; height: 100%; width: 100%; background: #fff; transform: scaleX(0); transform-origin: left center; }
+  .story-perfil { margin-top: 12px; display: flex; align-items: center; gap: 10px; color: #fff; }
+  .story-perfil img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; object-position: center 22%; border: 2px solid #fff; }
+  .story-perfil strong { display: block; font-size: 0.92rem; font-weight: 600; line-height: 1.2; }
+  .story-perfil span { display: block; font-size: 0.78rem; line-height: 1.2; opacity: 0.9; }
+  .story-nav { position: absolute; z-index: 2; top: 0; bottom: 0; width: 50%; border: 0; padding: 0 10px; background: none; cursor: pointer; display: flex; align-items: center; }
+  .story-nav.anterior { left: 0; justify-content: flex-start; }
+  .story-nav.proxima { right: 0; justify-content: flex-end; }
+  .story-nav span { width: 28px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.82); color: #33241f; display: grid; place-items: center; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+  .story-nav svg { width: 15px; height: 15px; }
+  .story-nav.anterior svg { transform: rotate(180deg); }
+  .story-nav[hidden] { display: none; }
+  .story-nav:focus-visible { outline: none; }
+  .story-nav:focus-visible span { outline: 3px solid #fff; outline-offset: 2px; }
   .story-rodape { text-align: center; }
   .story-legenda { min-height: 3.2em; font-size: 1.1rem; color: var(--tinta-suave); max-width: 34ch; margin-inline: auto; }
   .seguir { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--cobre-escuro); }
@@ -137,13 +147,12 @@
     .conteudos { padding: 104px 0; }
     .conteudos .faixa { grid-template-columns: 1fr auto; grid-template-areas: "titulo story" "rodape story"; column-gap: 72px; row-gap: 20px; }
     .conteudos-titulo { grid-area: titulo; align-self: end; }
-    .story { grid-area: story; width: 340px; }
+    .celular { grid-area: story; width: 332px; }
     .story-rodape { grid-area: rodape; align-self: start; text-align: left; }
     .story-legenda { margin-inline: 0; }
   }
   @media (prefers-reduced-motion: reduce) {
     .story-item { transition: none; }
-    .story-barras i.tocando b { transition: none; }
   }
 
   /* Onde */
@@ -335,22 +344,30 @@
   <section class="conteudos">
     <div class="faixa">
       <h2 class="conteudos-titulo">Informação que ela compartilha <em>no dia a dia.</em></h2>
-      <div class="story" id="story" role="group" aria-roledescription="carrossel" aria-label="Publicações da Dra. Andrea">
-        <div class="story-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
-        <figure class="story-item ativo" data-legenda="Participação no 50º Congresso da SGORJ, em setembro de 2026.">
-          <img class="fundo" src="assets/congresso-sgorj.jpg" alt="" aria-hidden="true">
-          <img class="frente" src="assets/congresso-sgorj.jpg" alt="Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ">
-        </figure>
-        <figure class="story-item" data-legenda="Skincare íntimo: por onde começar.">
-          <img class="fundo" src="assets/post-cuidado-intimo.jpg" alt="" aria-hidden="true" loading="lazy">
-          <img class="frente" src="assets/post-cuidado-intimo.jpg" alt="Publicação sobre cuidados com a região íntima" loading="lazy">
-        </figure>
-        <figure class="story-item" data-legenda="Implante contraceptivo: o que mudou no prazo.">
-          <img class="fundo" src="assets/post-implanon.jpg" alt="" aria-hidden="true" loading="lazy">
-          <img class="frente" src="assets/post-implanon.jpg" alt="Publicação sobre a nova duração do implante contraceptivo" loading="lazy">
-        </figure>
-        <button type="button" class="story-nav anterior" id="story-anterior" aria-label="Publicação anterior"></button>
-        <button type="button" class="story-nav proxima" id="story-proxima" aria-label="Próxima publicação"></button>
+      <div class="celular">
+        <div class="story" id="story" role="group" aria-roledescription="carrossel" aria-label="Publicações da Dra. Andrea">
+          <figure class="story-item ativo" data-legenda="Participação no 50º Congresso da SGORJ, em setembro de 2026.">
+            <img class="fundo" src="assets/congresso-sgorj.jpg" alt="" aria-hidden="true">
+            <img class="frente" src="assets/congresso-sgorj.jpg" alt="Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ">
+          </figure>
+          <figure class="story-item" data-legenda="Skincare íntimo: por onde começar.">
+            <img class="fundo" src="assets/post-cuidado-intimo.jpg" alt="" aria-hidden="true" loading="lazy">
+            <img class="frente" src="assets/post-cuidado-intimo.jpg" alt="Publicação sobre cuidados com a região íntima" loading="lazy">
+          </figure>
+          <figure class="story-item" data-legenda="Implante contraceptivo: o que mudou no prazo.">
+            <img class="fundo" src="assets/post-implanon.jpg" alt="" aria-hidden="true" loading="lazy">
+            <img class="frente" src="assets/post-implanon.jpg" alt="Publicação sobre a nova duração do implante contraceptivo" loading="lazy">
+          </figure>
+          <div class="story-topo">
+            <div class="story-barras" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+            <div class="story-perfil">
+              <img src="assets/retrato.jpg" alt="" width="40" height="40">
+              <div><strong>@deiasalomao</strong><span>Rio de Janeiro</span></div>
+            </div>
+          </div>
+          <button type="button" class="story-nav anterior" id="story-anterior" aria-label="Publicação anterior"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span></button>
+          <button type="button" class="story-nav proxima" id="story-proxima" aria-label="Próxima publicação"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span></button>
+        </div>
       </div>
       <div class="story-rodape">
         <p class="story-legenda" id="story-legenda" aria-live="polite"></p>
@@ -461,44 +478,51 @@
     });
   })();
 
-  // Stories: uma publicação por vez, com legenda embaixo
+  // Stories: uma publicação por vez, com legenda embaixo.
+  // A barra da vez é a única fonte do tempo: quando ela termina, avança.
   (function () {
     var story = document.getElementById("story");
     var itens = story.querySelectorAll(".story-item");
-    var barras = story.querySelectorAll(".story-barras i");
+    var barras = story.querySelectorAll(".story-barras b");
     var legenda = document.getElementById("story-legenda");
+    var anterior = document.getElementById("story-anterior");
     var TEMPO = 5000;
-    var atual = 0, relogio = null, visivel = false;
+    var atual = 0, anim = null, visivel = false;
     var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    story.style.setProperty("--story-tempo", TEMPO + "ms");
 
+    function pararBarra() {
+      if (anim) { anim.onfinish = null; anim.cancel(); anim = null; }
+    }
     function mostrar(n) {
+      pararBarra();
       atual = (n + itens.length) % itens.length;
       itens.forEach(function (it, i) { it.classList.toggle("ativo", i === atual); });
-      barras.forEach(function (b, i) {
-        b.classList.remove("tocando");
-        b.classList.toggle("visto", i < atual);
-      });
+      // as anteriores ficam cheias, as seguintes vazias, a da vez começa do zero
+      barras.forEach(function (b, i) { b.style.transform = i < atual ? "scaleX(1)" : "scaleX(0)"; });
       legenda.textContent = itens[atual].getAttribute("data-legenda");
-      agendar();
+      anterior.hidden = atual === 0;
+      tocar();
     }
-    function agendar() {
-      clearTimeout(relogio);
-      if (semMovimento || !visivel) { barras[atual].classList.add("visto"); return; }
-      void barras[atual].offsetWidth; // reinicia a barra
-      barras[atual].classList.add("tocando");
-      relogio = setTimeout(function () { mostrar(atual + 1); }, TEMPO);
+    function tocar() {
+      pararBarra();
+      var b = barras[atual];
+      if (semMovimento || !b.animate) { b.style.transform = "scaleX(1)"; return; }
+      if (!visivel) return;
+      anim = b.animate([{ transform: "scaleX(0)" }, { transform: "scaleX(1)" }], { duration: TEMPO, easing: "linear" });
+      anim.onfinish = function () { anim = null; mostrar(atual + 1); };
     }
     document.getElementById("story-proxima").addEventListener("click", function () { mostrar(atual + 1); });
-    document.getElementById("story-anterior").addEventListener("click", function () { mostrar(atual - 1); });
+    anterior.addEventListener("click", function () { mostrar(atual - 1); });
     story.addEventListener("keydown", function (e) {
       if (e.key === "ArrowRight") mostrar(atual + 1);
-      if (e.key === "ArrowLeft") mostrar(atual - 1);
+      if (e.key === "ArrowLeft" && atual > 0) mostrar(atual - 1);
     });
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
-        visivel = es[0].isIntersecting;
-        if (visivel) mostrar(atual); else clearTimeout(relogio);
+        var agora = es[0].isIntersecting;
+        if (agora === visivel) return;
+        visivel = agora;
+        if (visivel) tocar(); else pararBarra();
       }, { threshold: 0.5 }).observe(story);
     } else { visivel = true; }
     mostrar(0);
