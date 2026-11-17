@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dra. Andrea Salomão | Médica | Saúde da mulher no Rio de Janeiro</title>
+<meta name="description" content="Dra. Andrea Salomão, médica (CRM-RJ 120923-0). Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado. Agende pelo WhatsApp.">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://endryusschmidel.github.io/andrea-salomao/">
+<meta property="og:site_name" content="Dra. Andrea Salomão">
+<meta property="og:title" content="Dra. Andrea Salomão | Médica | Saúde da mulher">
+<meta property="og:description" content="Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado. Agende pelo WhatsApp.">
+<meta property="og:image" content="https://endryusschmidel.github.io/andrea-salomao/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/avatar.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #fbf6f1;
+    --rose: #f3e2da;
+    --rose-forte: #e6c6bb;
+    --cobre: #a8613f;
+    --cobre-escuro: #7f4429;
+    --salvia: #76866f;
+    --tinta: #33241f;
+    --tinta-suave: #6b5850;
+    --display: "Bodoni Moda", "Times New Roman", serif;
+    --texto: "Figtree", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--creme); color: var(--tinta); font-family: var(--texto); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--cobre); outline-offset: 3px; }
+  .faixa { width: min(1080px, 100% - 44px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.08; letter-spacing: -0.01em; }
+  h2 { font-size: clamp(2rem, 5.2vw, 3rem); }
+  h2 em { font-style: italic; }
+  .botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 26px; border-radius: 999px; background: var(--cobre); color: #fff; font-weight: 600; text-decoration: none; border: 0; font: inherit; font-weight: 600; cursor: pointer; }
+  .botao:hover { background: var(--cobre-escuro); }
+  .botao svg { width: 20px; height: 20px; flex: none; }
+
+  .aviso-previa { background: var(--tinta); color: var(--creme); text-align: center; font-size: 0.85rem; padding: 8px 16px; }
+
+  /* Topo */
+  .topo { position: sticky; top: 0; z-index: 5; background: rgba(251, 246, 241, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--rose-forte); }
+  .topo .faixa { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+  .marca { text-decoration: none; line-height: 1.15; }
+  .marca b { display: block; font-family: var(--display); font-weight: 500; font-size: 1.3rem; letter-spacing: 0.04em; color: var(--cobre-escuro); }
+  .marca span { font-size: 0.8rem; color: var(--tinta-suave); }
+  .topo .botao { min-height: 44px; padding: 0 18px; font-size: 0.95rem; white-space: nowrap; }
+  .marca b, .marca span { white-space: nowrap; }
+  @media (max-width: 420px) { .marca b { font-size: 1.12rem; } .topo .botao { padding: 0 14px; font-size: 0.9rem; } }
+
+  /* Abertura */
+  .abertura { background: linear-gradient(180deg, var(--creme) 0%, var(--rose) 100%); padding: 56px 0 72px; }
+  .abertura .faixa { display: grid; gap: 36px; align-items: center; }
+  .retrato { width: 172px; aspect-ratio: 4 / 5; border-radius: 999px 999px 18px 18px; overflow: hidden; border: 5px solid #fff; box-shadow: 0 0 0 1.5px var(--cobre); }
+  .retrato img { width: 100%; height: 100%; object-fit: cover; }
+  .abertura h1 { font-size: clamp(2.8rem, 9.5vw, 5.4rem); }
+  .abertura h1 em { display: block; font-style: italic; color: var(--cobre-escuro); }
+  .abertura p { max-width: 34ch; margin: 22px 0 28px; font-size: 1.15rem; color: var(--tinta-suave); }
+  .registro { margin-top: 18px; font-size: 0.9rem; color: var(--tinta-suave); }
+  @media (min-width: 820px) {
+    .abertura { padding: 88px 0 104px; }
+    .abertura .faixa { grid-template-columns: 1fr auto; gap: 64px; }
+    .retrato { width: 300px; order: 2; }
+  }
+
+  /* Agendamento */
+  .agendar { padding: 72px 0; }
+  .agendar .faixa { display: grid; gap: 36px; }
+  .agendar p.apoio { margin-top: 14px; max-width: 46ch; color: var(--tinta-suave); }
+  fieldset { border: 0; padding: 0; margin-top: 26px; }
+  legend { font-weight: 600; margin-bottom: 12px; }
+  .opcoes { display: flex; flex-wrap: wrap; gap: 10px; }
+  .opcoes label { position: relative; }
+  .opcoes input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .opcoes span { display: block; padding: 11px 18px; border-radius: 999px; border: 1.5px solid var(--rose-forte); background: #fff; }
+  .opcoes input:checked + span { background: var(--tinta); border-color: var(--tinta); color: #fff; }
+  .opcoes input:focus-visible + span { outline: 3px solid var(--cobre); outline-offset: 3px; }
+  .conversa { background: var(--rose); border-radius: 26px; padding: 26px 22px; align-self: start; }
+  .conversa small { display: block; color: var(--tinta-suave); margin-bottom: 12px; }
+  .balao { background: #fff; border-radius: 20px 20px 4px 20px; padding: 16px 18px; margin-bottom: 20px; min-height: 96px; }
+  .conversa .botao { width: 100%; }
+  @media (min-width: 820px) {
+    .agendar { padding: 104px 0; }
+    .agendar .faixa { grid-template-columns: 1.1fr 0.9fr; gap: 72px; }
+    .conversa { padding: 34px; position: sticky; top: 96px; }
+  }
+
+  /* Cuidados */
+  .cuidados { background: var(--tinta); color: var(--creme); padding: 72px 0; }
+  .cuidados h2 em { color: var(--rose-forte); }
+  .lista { list-style: none; padding: 0; margin-top: 36px; display: grid; gap: 0; }
+  .lista li { padding: 24px 0; border-top: 1px solid rgba(251, 246, 241, 0.22); display: grid; gap: 6px; }
+  .lista h3 { font-size: 1.7rem; font-style: italic; }
+  .lista p { color: rgba(251, 246, 241, 0.78); max-width: 52ch; }
+  @media (min-width: 820px) {
+    .cuidados { padding: 104px 0; }
+    .lista li { grid-template-columns: 300px 1fr; gap: 32px; align-items: baseline; padding: 30px 0; }
+    .lista h3 { font-size: 2rem; }
+  }
+
+  /* Conteúdos */
+  .conteudos { padding: 72px 0; }
+  .grade { margin-top: 32px; display: grid; gap: 18px; grid-template-columns: 1fr 1fr; }
+  .grade figure { margin: 0; }
+  .grade figure:first-child { grid-column: 1 / -1; }
+  .grade img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; }
+  .grade figcaption { margin-top: 10px; font-size: 0.95rem; color: var(--tinta-suave); }
+  .seguir { display: inline-block; margin-top: 28px; font-weight: 600; color: var(--cobre-escuro); }
+  @media (min-width: 820px) {
+    .conteudos { padding: 104px 0; }
+    .grade { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grade figure:first-child { grid-column: auto; }
+  }
+
+  /* Onde */
+  .onde { background: var(--rose); padding: 72px 0; }
+  .onde dl { margin-top: 28px; display: grid; gap: 18px; }
+  .onde dt { font-weight: 600; }
+  .onde dd { margin: 2px 0 0; color: var(--tinta-suave); }
+  .pendente { display: inline-block; padding: 2px 10px; border-radius: 8px; background: #fff; border: 1.5px dashed var(--cobre); color: var(--cobre-escuro); }
+  .onde .botao { margin-top: 30px; }
+  @media (min-width: 820px) {
+    .onde { padding: 96px 0; }
+    .onde dl { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  }
+
+  footer { padding: 34px 0 44px; font-size: 0.92rem; color: var(--tinta-suave); }
+  footer .faixa { display: grid; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="aviso-previa">Prévia para avaliação, criada pela Verbinden. Ainda não é o site oficial.</div>
+
+<header class="topo">
+  <div class="faixa">
+    <a class="marca" href="#inicio"><b>Andrea Salomão</b><span>Médica | CRM-RJ 120923-0</span></a>
+    <a class="botao" href="#agendar">Agendar consulta</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="abertura">
+    <div class="faixa">
+      <div class="retrato"><img src="assets/avatar.jpg" alt="Dra. Andrea Salomão sorrindo"></div>
+      <div>
+        <h1>Apaixonada pela <em>saúde da mulher.</em></h1>
+        <p>Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado.</p>
+        <a class="botao" href="#agendar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+          Agendar pelo WhatsApp
+        </a>
+        <div class="registro">Dra. Andrea Salomão | Médica | CRM-RJ 120923-0</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="agendar" id="agendar">
+    <div class="faixa">
+      <form id="form-agendar">
+        <h2>Monte seu pedido de consulta <em>em poucos toques.</em></h2>
+        <p class="apoio">Escolha o assunto e o período. A mensagem já chega pronta no WhatsApp da Dra. Andrea, e você só confirma o melhor horário.</p>
+        <fieldset>
+          <legend>Sobre o que você quer conversar?</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="assunto" value="saúde íntima" checked><span>Saúde íntima</span></label>
+            <label><input type="radio" name="assunto" value="contracepção"><span>Contracepção</span></label>
+            <label><input type="radio" name="assunto" value="sexualidade"><span>Sexualidade</span></label>
+            <label><input type="radio" name="assunto" value="bem-estar"><span>Bem-estar</span></label>
+            <label><input type="radio" name="assunto" value="outro assunto"><span>Outro assunto</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Qual período é melhor para você?</legend>
+          <div class="opcoes">
+            <label><input type="radio" name="periodo" value="de manhã" checked><span>Manhã</span></label>
+            <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
+            <label><input type="radio" name="periodo" value="em qualquer período"><span>Tanto faz</span></label>
+          </div>
+        </fieldset>
+      </form>
+      <aside class="conversa" aria-live="polite">
+        <small>Sua mensagem vai assim:</small>
+        <div class="balao" id="previa-msg"></div>
+        <a class="botao" id="enviar" target="_blank" rel="noopener" href="https://wa.me/5521966428116">Enviar no WhatsApp</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="cuidados">
+    <div class="faixa">
+      <h2>Do que a gente cuida <em>na consulta.</em></h2>
+      <ul class="lista">
+        <li><h3>Saúde íntima</h3><p>A pele da vulva também merece atenção, entendendo o que o seu corpo realmente precisa, de forma individual e personalizada.</p></li>
+        <li><h3>Contracepção</h3><p>Orientação para escolher e acompanhar o método, incluindo o implante contraceptivo e os prazos de troca.</p></li>
+        <li><h3>Sexualidade</h3><p>Um espaço para tirar dúvidas e falar do que incomoda, com informação e escolhas seguras.</p></li>
+        <li><h3>Bem-estar</h3><p>Cuidado que olha para a rotina e para cada fase da vida da mulher.</p></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="conteudos">
+    <div class="faixa">
+      <h2>Informação que ela compartilha <em>no dia a dia.</em></h2>
+      <div class="grade">
+        <figure>
+          <img src="assets/congresso-sgorj.jpg" alt="Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ">
+          <figcaption>Participação no 50º Congresso da SGORJ, em setembro de 2026.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/post-cuidado-intimo.jpg" alt="Publicação sobre cuidados com a região íntima">
+          <figcaption>Skincare íntimo: por onde começar.</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/post-implanon.jpg" alt="Publicação sobre a nova duração do implante contraceptivo">
+          <figcaption>Implante contraceptivo: o que mudou no prazo.</figcaption>
+        </figure>
+      </div>
+      <a class="seguir" href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">Acompanhar @deiasalomao no Instagram</a>
+    </div>
+  </section>
+
+  <section class="onde">
+    <div class="faixa">
+      <h2>Onde e como <em>é o atendimento.</em></h2>
+      <dl>
+        <div><dt>Consultório</dt><dd><span class="pendente">endereço a confirmar</span><br>Rio de Janeiro, RJ</dd></div>
+        <div><dt>Horários</dt><dd><span class="pendente">dias e horários a confirmar</span></dd></div>
+        <div><dt>Atendimento</dt><dd><span class="pendente">particular, convênio ou online: a confirmar</span></dd></div>
+      </dl>
+      <a class="botao" href="#agendar">Agendar consulta</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="faixa">
+    <div>Dra. Andrea Salomão | Médica | CRM-RJ 120923-0</div>
+    <div>As informações deste site têm caráter educativo e não substituem a consulta médica.</div>
+    <div>Prévia criada pela Verbinden para avaliação. Ainda não publicada.</div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var form = document.getElementById("form-agendar");
+    var previa = document.getElementById("previa-msg");
+    var enviar = document.getElementById("enviar");
+    function montar() {
+      var assunto = form.elements.assunto.value;
+      var periodo = form.elements.periodo.value;
+      var msg = "Olá, Dra. Andrea! Vim pelo seu site e gostaria de agendar uma consulta sobre " + assunto +
+        ". Tenho preferência por atendimento " + periodo + ". Pode me passar os horários disponíveis?";
+      previa.textContent = msg;
+      enviar.href = "https://wa.me/5521966428116?text=" + encodeURIComponent(msg);
+    }
+    form.addEventListener("change", montar);
+    montar();
+  })();
+</script>
+</body>
+</html>
