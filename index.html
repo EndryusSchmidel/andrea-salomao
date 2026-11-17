@@ -325,6 +325,66 @@
   @media (min-width: 820px) { .retrato { margin: 10px 10px 10px 0; } }
   .sobre .faixa { align-items: start; }
   @media (min-width: 820px) { .sobre ul { padding-top: 14px; } }
+
+  /* Ajustes de harmonia */
+  /* 1. Rodapé em areia, com uma faixa de sálvia em cima */
+  footer { background: var(--rose); border-top: 10px solid var(--verde); }
+  /* 3. Seção escura em carvão esverdeado, levando a sálvia ao meio da página */
+  :root { --escuro: #343a31; }
+  .cuidados .lista li { border-top-color: rgba(246, 242, 236, 0.18); }
+
+  /* Pedido de consulta no modelo do Dr. Victor */
+  .form-cartao { background: var(--creme); border: 1px solid var(--rose-forte); border-radius: 22px; padding: 30px 22px; }
+  .form-cartao .apoio { margin-bottom: 8px; }
+  .linha-dupla { display: grid; gap: 0 18px; }
+  .form-cartao .campo { max-width: none; margin-top: 18px; }
+  .form-cartao label { font-weight: 500; }
+  .opcional { font-weight: 400; color: var(--tinta-suave); }
+  .campo textarea, .seletor select { font: inherit; width: 100%; padding: 13px 16px; border-radius: 14px; border: 1px solid var(--rose-forte); background: #fff; color: var(--tinta); }
+  .campo input { background: #fff; }
+  .campo textarea { resize: vertical; min-height: 116px; line-height: 1.5; }
+  .campo textarea:focus, .seletor select:focus { outline: 3px solid var(--cobre); outline-offset: 2px; }
+  .seletor { position: relative; }
+  .seletor select { appearance: none; -webkit-appearance: none; padding-right: 44px; cursor: pointer; }
+  .seletor::after { content: ""; position: absolute; right: 18px; top: 50%; width: 8px; height: 8px; margin-top: -6px; border-right: 1.5px solid var(--cobre); border-bottom: 1.5px solid var(--cobre); transform: rotate(45deg); pointer-events: none; }
+  .campo input[aria-invalid="true"] { border-color: var(--cobre); }
+  .erro { font-size: 0.88rem; color: var(--cobre-escuro); }
+  .botao.enviar { margin-top: 24px; width: 100%; }
+  .conversa-nota { margin-top: 14px; font-size: 0.9rem; color: var(--tinta-suave); }
+  .balao { white-space: pre-line; margin-bottom: 0; }
+  @media (min-width: 640px) { .linha-dupla { grid-template-columns: 1fr 1fr; } .botao.enviar { width: auto; } }
+  @media (min-width: 820px) { .form-cartao { padding: 44px; } }
+
+  /* Topo em verde escuro, com a logo em rosé claro (como o topo do Dr. Victor) */
+  :root { --rose-claro: #e6c4c7; }
+  .aviso-previa { background: #2b3028; color: rgba(246, 242, 236, 0.86); }
+  .topo { background: rgba(52, 58, 49, 0.97); border-bottom: 1px solid rgba(246, 242, 236, 0.10); }
+  .marca span { color: rgba(246, 242, 236, 0.78); }
+  .topo .botao { background: var(--rose-claro); color: var(--tinta); }
+  .topo .botao:hover { background: var(--creme); }
+  .topo :focus-visible { outline-color: var(--rose-claro); }
+  @media (min-width: 980px) {
+    .menu a { color: rgba(246, 242, 236, 0.82); }
+    .menu a::after { background: var(--rose-claro); }
+    .menu a:hover, .menu a.ativo { color: var(--rose-claro); }
+  }
+
+  /* Dropdown próprio do motivo (o select nativo fica escondido e sincronizado) */
+  .seletor.pronto select { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+  .seletor.pronto::after { display: none; }
+  .dd-botao { position: relative; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 16px; border-radius: 14px; border: 1px solid var(--rose-forte); background: #fff; color: var(--tinta); font: inherit; text-align: left; cursor: pointer; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+  .dd-botao:hover { border-color: var(--cobre); }
+  .dd-botao:focus-visible { outline: 3px solid var(--cobre); outline-offset: 2px; }
+  .dd-botao[aria-expanded="true"] { border-color: var(--cobre); box-shadow: 0 0 0 3px rgba(140, 90, 96, 0.12); }
+  .dd-seta { flex: none; width: 9px; height: 9px; margin-top: -4px; border-right: 1.5px solid var(--cobre); border-bottom: 1.5px solid var(--cobre); transform: rotate(45deg); transition: transform 0.22s ease, margin 0.22s ease; }
+  .dd-botao[aria-expanded="true"] .dd-seta { transform: rotate(-135deg); margin-top: 4px; }
+  .dd-lista { position: absolute; z-index: 4; left: 0; right: 0; top: calc(100% + 8px); margin: 0; padding: 6px; list-style: none; background: #fff; border: 1px solid var(--rose-forte); border-radius: 16px; box-shadow: 0 16px 36px rgba(42, 37, 34, 0.12); opacity: 0; transform: translateY(-6px); pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; }
+  .dd-lista.aberta { opacity: 1; transform: none; pointer-events: auto; }
+  .dd-lista li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 14px; border-radius: 10px; cursor: pointer; color: var(--tinta); }
+  .dd-lista li.foco { background: var(--rose); }
+  .dd-lista li[aria-selected="true"] { color: var(--cobre-escuro); font-weight: 500; }
+  .dd-lista li[aria-selected="true"]::after { content: ""; flex: none; width: 6px; height: 11px; margin-top: -3px; border-right: 1.5px solid var(--cobre); border-bottom: 1.5px solid var(--cobre); transform: rotate(45deg); }
+  @media (prefers-reduced-motion: reduce) { .dd-lista, .dd-seta, .dd-botao { transition: none; } }
 </style>
 </head>
 <body>
@@ -333,7 +393,7 @@
 
 <header class="topo">
   <div class="faixa">
-    <a class="marca" href="#inicio"><img class="marca-simbolo" src="assets/logo-simbolo.png" alt="" width="220" height="360"><span class="marca-texto"><img class="marca-nome" src="assets/logo-nome.png" alt="Andrea Salomão" width="837" height="96"><span>Médica | CRM-RJ 120923-0</span></span></a>
+    <a class="marca" href="#inicio"><img class="marca-simbolo" src="assets/logo-simbolo-claro.png" alt="" width="220" height="360"><span class="marca-texto"><img class="marca-nome" src="assets/logo-nome-claro.png" alt="Andrea Salomão" width="837" height="96"><span>Médica | CRM-RJ 120923-0</span></span></a>
     <ul class="menu">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#cuidados">Cuidados</a></li>
@@ -446,7 +506,7 @@
       <div>
         <details open>
           <summary>Como faço para agendar?</summary>
-          <p>Escolha o assunto e o período no pedido de consulta. A mensagem já chega pronta no WhatsApp e você só combina o horário.</p>
+          <p>Preencha seu nome e o motivo da consulta no fim da página. Você vai para o WhatsApp com a mensagem pronta e a Dra. Andrea responde para combinar o horário.</p>
         </details>
         <details>
           <summary>O que levar na primeira consulta?</summary>
@@ -466,37 +526,48 @@
 
   <section class="agendar" id="agendar">
     <div class="faixa">
-      <form id="form-agendar">
-        <h2>Monte seu pedido de consulta <em>em poucos toques.</em></h2>
-        <p class="apoio">Escolha o assunto e o período. A mensagem já chega pronta no WhatsApp da Dra. Andrea, e você só confirma o melhor horário.</p>
-        <fieldset>
-          <legend>Sobre o que você quer conversar?</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="assunto" value="saúde íntima" checked><span>Saúde íntima</span></label>
-            <label><input type="radio" name="assunto" value="contracepção"><span>Contracepção</span></label>
-            <label><input type="radio" name="assunto" value="sexualidade"><span>Sexualidade</span></label>
-            <label><input type="radio" name="assunto" value="bem-estar"><span>Bem-estar</span></label>
-            <label><input type="radio" name="assunto" value="outro assunto"><span>Outro assunto</span></label>
+      <form id="form-agendar" class="form-cartao" novalidate>
+        <h2>Seu cuidado começa <em>com uma conversa.</em></h2>
+        <p class="apoio">Conte um pouco sobre você e o que te traz até aqui. Ao enviar, você vai para o WhatsApp da Dra. Andrea com a mensagem pronta, e ela responde para combinar o melhor horário.</p>
+        <div class="linha-dupla">
+          <div class="campo">
+            <label for="nome">Seu nome</label>
+            <input id="nome" name="nome" autocomplete="name" placeholder="Seu nome" required>
+            <span class="erro" id="erro-nome" hidden>Escreva seu nome para a Dra. Andrea saber com quem está falando.</span>
           </div>
-        </fieldset>
-        <fieldset>
-          <legend>Qual período é melhor para você?</legend>
-          <div class="opcoes">
-            <label><input type="radio" name="periodo" value="de manhã" checked><span>Manhã</span></label>
-            <label><input type="radio" name="periodo" value="à tarde"><span>Tarde</span></label>
-            <label><input type="radio" name="periodo" value="em qualquer período"><span>Tanto faz</span></label>
+          <div class="campo">
+            <label for="tel">Telefone <span class="opcional">(opcional)</span></label>
+            <input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="(21) 9 0000-0000">
           </div>
-        </fieldset>
-        <div class="campo">
-          <label for="nome">Como você se chama? <span style="font-weight:400">(opcional)</span></label>
-          <input id="nome" name="nome" autocomplete="given-name" placeholder="Seu nome">
         </div>
-        <p class="aviso">Não precisa contar detalhes de saúde por aqui. Isso fica para a consulta.</p>
+        <div class="campo">
+          <label for="motivo" id="motivo-rotulo">Motivo da consulta</label>
+          <div class="seletor">
+            <select id="motivo" name="motivo">
+              <option value="uma primeira consulta">Primeira consulta</option>
+              <option value="um retorno">Retorno</option>
+              <option value="uma consulta sobre saúde íntima">Saúde íntima</option>
+              <option value="uma consulta sobre contracepção">Contracepção</option>
+              <option value="uma consulta sobre sexualidade">Sexualidade</option>
+              <option value="uma consulta sobre bem-estar">Bem-estar</option>
+              <option value="uma consulta">Outro motivo</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="msg">Quer contar mais alguma coisa? <span class="opcional">(opcional)</span></label>
+          <textarea id="msg" name="msg" rows="4" placeholder="Escreva do seu jeito: uma dúvida, o melhor dia para você, o que estiver no seu coração."></textarea>
+        </div>
+        <button type="submit" class="botao enviar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20l1.2-5A8.5 8.5 0 1 1 21 11.5Z"/></svg>
+          Enviar pelo WhatsApp
+        </button>
+        <p class="aviso">Escreva só o que se sentir à vontade. Detalhes de saúde podem ficar para a consulta, num ambiente reservado.</p>
       </form>
       <aside class="conversa" aria-live="polite">
-        <small>Sua mensagem vai assim:</small>
+        <small>Sua mensagem vai chegar assim:</small>
         <div class="balao" id="previa-msg"></div>
-        <a class="botao verde" id="enviar" target="_blank" rel="noopener" href="https://wa.me/5521966428116">Enviar no WhatsApp</a>
+        <p class="conversa-nota">A Dra. Andrea responde pelo WhatsApp para combinar o melhor dia e horário.</p>
       </aside>
     </div>
   </section>
@@ -536,18 +607,34 @@
   (function () {
     var form = document.getElementById("form-agendar");
     var previa = document.getElementById("previa-msg");
-    var enviar = document.getElementById("enviar");
-    function montar() {
-      var assunto = form.elements.assunto.value;
-      var periodo = form.elements.periodo.value;
+    var erroNome = document.getElementById("erro-nome");
+    var WHATSAPP = "5521966428116";
+    function texto() {
       var nome = form.elements.nome.value.trim();
-      var msg = "Olá, Dra. Andrea! " + (nome ? "Meu nome é " + nome + ". " : "") + "Vim pelo seu site e gostaria de agendar uma consulta sobre " + assunto +
-        ". Tenho preferência por atendimento " + periodo + ". Pode me passar os horários disponíveis?";
-      previa.textContent = msg;
-      enviar.href = "https://wa.me/5521966428116?text=" + encodeURIComponent(msg);
+      var tel = form.elements.tel.value.trim();
+      var motivo = form.elements.motivo.value;
+      var extra = form.elements.msg.value.trim();
+      var partes = ["Olá, Dra. Andrea! " + (nome ? "Meu nome é " + nome + " e vim" : "Vim") + " pelo seu site. Gostaria de agendar " + motivo + "."];
+      if (extra) partes.push(extra);
+      if (tel) partes.push("Meu telefone é " + tel + ".");
+      return partes.join("\n\n");
     }
+    function montar() { previa.textContent = texto(); }
+    form.addEventListener("input", function () {
+      if (form.elements.nome.value.trim()) { erroNome.hidden = true; form.elements.nome.removeAttribute("aria-invalid"); }
+      montar();
+    });
     form.addEventListener("change", montar);
-    form.addEventListener("input", montar);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (!form.elements.nome.value.trim()) {
+        erroNome.hidden = false;
+        form.elements.nome.setAttribute("aria-invalid", "true");
+        form.elements.nome.focus();
+        return;
+      }
+      window.open("https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto()), "_blank", "noopener");
+    });
     montar();
   })();
 
@@ -651,6 +738,91 @@
       marcar();
     }, { rootMargin: "-35% 0px -55% 0px" });
     Object.keys(porId).forEach(function (id) { var el = document.getElementById(id); if (el) obs.observe(el); });
+  })();
+
+  // Dropdown do motivo: lista própria, acessível por teclado, sincronizada com o select
+  (function () {
+    var select = document.getElementById("motivo");
+    if (!select) return;
+    var caixa = select.parentNode;
+    var rotulo = document.getElementById("motivo-rotulo");
+    var botao = document.createElement("button");
+    botao.type = "button";
+    botao.className = "dd-botao";
+    botao.id = "motivo-botao";
+    botao.setAttribute("aria-haspopup", "listbox");
+    botao.setAttribute("aria-expanded", "false");
+    botao.setAttribute("aria-labelledby", "motivo-rotulo motivo-botao");
+    botao.innerHTML = '<span class="dd-valor"></span><span class="dd-seta" aria-hidden="true"></span>';
+    var lista = document.createElement("ul");
+    lista.className = "dd-lista";
+    lista.id = "motivo-lista";
+    lista.setAttribute("role", "listbox");
+    lista.setAttribute("aria-labelledby", "motivo-rotulo");
+    lista.tabIndex = -1;
+    var itens = [].map.call(select.options, function (op, i) {
+      var li = document.createElement("li");
+      li.id = "motivo-op-" + i;
+      li.setAttribute("role", "option");
+      li.textContent = op.textContent;
+      li.addEventListener("click", function () { escolher(i); fechar(true); });
+      li.addEventListener("mousemove", function () { focar(i); });
+      lista.appendChild(li);
+      return li;
+    });
+    caixa.appendChild(botao);
+    caixa.appendChild(lista);
+    caixa.classList.add("pronto");
+    select.tabIndex = -1;
+    select.setAttribute("aria-hidden", "true");
+    rotulo.setAttribute("for", "motivo-botao");
+    var valor = botao.querySelector(".dd-valor");
+    var foco = select.selectedIndex;
+
+    function atualizar() {
+      valor.textContent = select.options[select.selectedIndex].textContent;
+      itens.forEach(function (li, i) { li.setAttribute("aria-selected", i === select.selectedIndex ? "true" : "false"); });
+    }
+    function focar(i) {
+      foco = (i + itens.length) % itens.length;
+      itens.forEach(function (li, j) { li.classList.toggle("foco", j === foco); });
+      lista.setAttribute("aria-activedescendant", itens[foco].id);
+    }
+    function escolher(i) {
+      select.selectedIndex = i;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      atualizar();
+    }
+    function abrir() {
+      botao.setAttribute("aria-expanded", "true");
+      lista.classList.add("aberta");
+      focar(select.selectedIndex);
+      lista.focus({ preventScroll: true });
+    }
+    function fechar(voltar) {
+      if (botao.getAttribute("aria-expanded") !== "true") return;
+      botao.setAttribute("aria-expanded", "false");
+      lista.classList.remove("aberta");
+      if (voltar) botao.focus();
+    }
+    botao.addEventListener("click", function () {
+      if (botao.getAttribute("aria-expanded") === "true") fechar(true); else abrir();
+    });
+    botao.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); abrir(); }
+    });
+    lista.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown") { e.preventDefault(); focar(foco + 1); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); focar(foco - 1); }
+      else if (e.key === "Home") { e.preventDefault(); focar(0); }
+      else if (e.key === "End") { e.preventDefault(); focar(itens.length - 1); }
+      else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); escolher(foco); fechar(true); }
+      else if (e.key === "Escape") { e.preventDefault(); fechar(true); }
+      else if (e.key === "Tab") { fechar(false); }
+    });
+    document.addEventListener("click", function (e) { if (!caixa.contains(e.target)) fechar(false); });
+    select.addEventListener("change", atualizar);
+    atualizar();
   })();
 </script>
 </body>
