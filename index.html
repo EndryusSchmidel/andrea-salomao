@@ -637,6 +637,25 @@
   @media (max-width: 819px) {
     .sem-zap-fixo .zap-fixo { opacity: 0; transform: translateY(10px); pointer-events: none; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; }
   }
+
+  /* Troca de idioma PT/EN no topo */
+  .idioma { display: flex; flex: none; padding: 3px; border-radius: 999px; border: 1px solid rgba(246, 242, 236, 0.22); background: rgba(246, 242, 236, 0.06); }
+  .idioma button { font: 600 0.72rem/1 var(--texto); letter-spacing: 0.06em; color: var(--creme); background: none; border: 0; padding: 7px 10px; border-radius: 999px; cursor: pointer; opacity: 0.75; transition: background-color 0.2s ease, opacity 0.2s ease; }
+  .idioma button:hover { opacity: 1; }
+  .idioma button[aria-pressed="true"] { background: var(--rose-claro); color: var(--tinta); opacity: 1; }
+  .idioma button:focus-visible { outline: 2px solid var(--rose-claro); outline-offset: 2px; }
+  .topo .faixa { gap: 14px; }
+  @media (min-width: 980px) { .idioma { order: 2; } .topo .botao { order: 3; } .menu { order: 1; margin-left: auto; } .marca { order: 0; } }
+  .topo .botao .curto { display: none; }
+  @media (max-width: 480px) {
+    .topo .faixa { gap: 8px; }
+    .marca-texto > span { display: none; }
+    .marca-simbolo { height: 36px; }
+    .marca-nome { height: 13px; margin-bottom: 0; }
+    .topo .botao .longo { display: none; }
+    .topo .botao .curto { display: inline; }
+    .topo .botao { padding: 0 14px; }
+  }
 </style>
 </head>
 <body>
@@ -646,13 +665,14 @@
 <header class="topo">
   <div class="faixa">
     <a class="marca" href="#inicio"><img class="marca-simbolo" src="assets/logo-simbolo-claro.png" alt="" width="220" height="360"><span class="marca-texto"><img class="marca-nome" src="assets/logo-nome-claro.png" alt="Andrea Salomão" width="837" height="96"><span>Médica | CRM-RJ 120923-0</span></span></a>
+    <div class="idioma" role="group" aria-label="Idioma / Language"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
     <ul class="menu">
       <li><a href="#sobre">Sobre</a></li>
       <li><a href="#cuidados">Cuidados</a></li>
       <li><a href="#duvidas">Dúvidas</a></li>
       <li><a href="#contato">Contato</a></li>
     </ul>
-    <a class="botao" href="#agendar">Agendar consulta</a>
+    <a class="botao" href="#agendar"><span class="longo">Agendar consulta</span><span class="curto">Agendar</span></a>
   </div>
 </header>
 
@@ -932,9 +952,13 @@
       var tel = form.elements.tel.value.trim();
       var motivo = form.elements.motivo.value;
       var extra = form.elements.msg.value.trim();
-      var partes = ["Olá, Dra. Andrea! " + (nome ? "Meu nome é " + nome + " e vim" : "Vim") + " pelo seu site. Gostaria de agendar " + motivo + "."];
+      var MOTIVO_EN = { "uma primeira consulta": "a first appointment", "um retorno": "a follow-up appointment", "uma consulta sobre saúde íntima": "an appointment about intimate health", "uma consulta sobre contracepção": "an appointment about contraception", "uma consulta sobre sexualidade": "an appointment about sexuality", "uma consulta sobre bem-estar": "an appointment about well-being", "uma consulta": "an appointment" };
+      var en = window.__idioma === "en";
+      var partes = en
+        ? ["Hi, Dr. Andrea! " + (nome ? "My name is " + nome + " and I found" : "I found") + " you through your website. I'd like to book " + (MOTIVO_EN[motivo] || "an appointment") + "."]
+        : ["Olá, Dra. Andrea! " + (nome ? "Meu nome é " + nome + " e vim" : "Vim") + " pelo seu site. Gostaria de agendar " + motivo + "."];
       if (extra) partes.push(extra);
-      if (tel) partes.push("Meu telefone é " + tel + ".");
+      if (tel) partes.push(en ? "My phone number is " + tel + "." : "Meu telefone é " + tel + ".");
       return partes.join("\n\n");
     }
     function montar() { previa.textContent = texto(); }
@@ -943,6 +967,7 @@
       montar();
     });
     form.addEventListener("change", montar);
+    document.addEventListener("idioma", montar);
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (!form.elements.nome.value.trim()) {
@@ -1222,6 +1247,55 @@
     window.addEventListener("scroll", function () { if (!pendente) { pendente = true; requestAnimationFrame(conferir); } }, { passive: true });
     window.addEventListener("resize", conferir);
     conferir();
+  })();
+
+  // Idioma: português no próprio HTML, inglês trocado por texto (mantém o original para voltar)
+  (function () {
+    var EN = {"Prévia para avaliação, criada pela Verbinden. Ainda não é o site oficial.": "Preview for review, created by Verbinden. This is not the official website yet.", "Médica | CRM-RJ 120923-0": "Physician | CRM-RJ 120923-0", "Sobre": "About", "Cuidados": "Topics", "Dúvidas": "FAQ", "Contato": "Contact", "Agendar consulta": "Book an appointment", "Agendar": "Book", "Que bom ter": "So glad to", "você aqui": "have you here", "Apaixonada pela": "Passionate about", "saúde da mulher.": "women's health.", "Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado.": "Women's health, sexuality and well-being, with individual, personalized care.", "Agendar pelo WhatsApp": "Book on WhatsApp", "Conhecer a Dra. Andrea": "Meet Dr. Andrea", "Dra. Andrea Salomão | Médica | CRM-RJ 120923-0": "Dr. Andrea Salomão | Physician | CRM-RJ 120923-0", "Cuidado que começa": "Care that starts", "pela escuta.": "with listening.", "Sou a Dra. Andrea Salomão, médica dedicada à saúde da mulher: saúde íntima, contracepção, sexualidade e bem-estar.": "I'm Dr. Andrea Salomão, a physician dedicated to women's health: intimate health, contraception, sexuality and well-being.", "Acredito em cuidado individual e personalizado, com informação clara para que cada mulher faça escolhas seguras sobre o próprio corpo.": "I believe in individual, personalized care, with clear information so every woman can make safe choices about her own body.", "Assista à apresentação": "Watch the introduction", "A Dra. Andrea conta, em 40 segundos, como é o trabalho dela.": "In 40 seconds, Dr. Andrea shares what her work is like (in Portuguese).", "Atendimento": "Care", "Atendimento individual e personalizado": "Individual, personalized care", "Informação": "Information", "Informação clara e escolhas seguras": "Clear information and safe choices", "Congresso": "Congress", "Participação no 50º Congresso da SGORJ, em 2026": "Speaker at the 50th SGORJ Congress, 2026", "Dentro e fora": "Inside and outside", "do consultório.": "the office.", "Além das consultas, a Dra. Andrea leva informação sobre saúde da mulher para outros espaços e segue aprendendo.": "Beyond appointments, Dr. Andrea brings women's health information to other spaces and keeps learning.", "Moção no Outubro Rosa": "Pink October honor", "Reconhecimento na Câmara de São João de Meriti pelo trabalho no CPDO e pelo cuidado com a saúde das mulheres.": "Recognized by the São João de Meriti City Council for her work at CPDO and her care for women's health.", "Ação de Outubro Rosa": "Pink October event", "Um dia para lembrar pacientes e colaboradoras da importância do rastreio e do diagnóstico precoce do câncer de mama.": "A day to remind patients and staff about the importance of breast cancer screening and early diagnosis.", "Aprendizado contínuo": "Continuous learning", "Capacitação ao lado do Dr. Jadson Lener, aprendendo cada detalhe com um olhar atencioso.": "Training alongside Dr. Jadson Lener, learning every detail with an attentive eye.", "Os temas": "What we", "da consulta.": "cover in care.", "Saúde íntima": "Intimate health", "A pele da vulva também merece atenção, entendendo o que o seu corpo realmente precisa, de forma individual e personalizada.": "Vulvar skin deserves attention too, understanding what your body really needs, in an individual, personalized way.", "Contracepção": "Contraception", "Orientação para escolher e acompanhar o método, incluindo o implante contraceptivo e os prazos de troca.": "Guidance to choose and follow up on your method, including the contraceptive implant and when to replace it.", "Sexualidade": "Sexuality", "Um espaço para tirar dúvidas e falar do que incomoda, com informação e escolhas seguras.": "A space to ask questions and talk about what bothers you, with information and safe choices.", "Bem-estar": "Well-being", "Cuidado que olha para a rotina e para cada fase da vida da mulher.": "Care that looks at your routine and every stage of a woman's life.", "Da primeira mensagem": "From the first message", "ao acompanhamento.": "to follow-up care.", "Agendamento": "Booking", "Você conta o que precisa aqui no site e combina o horário pelo WhatsApp.": "Tell us what you need here on the website and set the time on WhatsApp.", "Consulta": "Appointment", "Conversa sobre o que você sente, sua rotina e seu histórico.": "A conversation about how you feel, your routine and your history.", "Plano de cuidado": "Care plan", "Orientações pensadas para o seu caso, explicadas com clareza.": "Guidance designed for your case, explained clearly.", "Acompanhamento": "Ongoing care", "Retornos para ajustar o que for preciso ao longo do tempo.": "Follow-up visits to adjust whatever is needed over time.", "Informação que ela compartilha": "Information she shares", "no dia a dia.": "every day.", "Participação no 50º Congresso da SGORJ, em setembro de 2026.": "Speaker at the 50th SGORJ Congress, September 2026.", "Skincare íntimo: por onde começar.": "Intimate skincare: where to start.", "Implante contraceptivo: o que mudou no prazo.": "Contraceptive implant: what changed in its duration.", "Acompanhe no Instagram:": "Follow on Instagram:", "mais comuns.": "and answers.", "Não achou a sua? Fale direto com a Dra. Andrea pelo WhatsApp.": "Didn't find yours? Talk to Dr. Andrea directly on WhatsApp.", "Como faço para agendar?": "How do I book an appointment?", "Preencha seu nome e o motivo da consulta no fim da página. Você vai para o WhatsApp com a mensagem pronta e a Dra. Andrea responde para combinar o horário.": "Fill in your name and the reason for your visit at the end of the page. You'll go to WhatsApp with the message ready, and Dr. Andrea replies to set the time.", "O que levar na primeira consulta?": "What should I bring to my first appointment?", "Exames recentes, se tiver, e a lista dos medicamentos e métodos contraceptivos que você usa.": "Recent test results, if you have them, and a list of the medications and contraceptive methods you use.", "O atendimento é particular ou por convênio?": "Is it private pay or covered by insurance?", "O atendimento é particular. Você recebe recibo para pedir reembolso ao seu plano de saúde, se ele oferecer.": "Appointments are private pay. You get a receipt to request reimbursement from your health plan, if it offers it.", "Tem consulta online?": "Are online appointments available?", "Sim. A consulta pode ser presencial ou online; é só dizer sua preferência na mensagem.": "Yes. Appointments can be in person or online; just mention your preference in the message.", "Seu cuidado começa": "Your care starts", "com uma conversa.": "with a conversation.", "Conte um pouco sobre você e o que te traz até aqui. Ao enviar, você vai para o WhatsApp da Dra. Andrea com a mensagem pronta, e ela responde para combinar o melhor horário.": "Tell us a little about yourself and what brings you here. When you send it, you'll go to Dr. Andrea's WhatsApp with the message ready, and she replies to set the best time.", "Seu nome": "Your name", "Escreva seu nome para a Dra. Andrea saber com quem está falando.": "Please write your name so Dr. Andrea knows who she's talking to.", "Telefone": "Phone", "(opcional)": "(optional)", "Motivo da consulta": "Reason for the visit", "Primeira consulta": "First appointment", "Retorno": "Follow-up", "Outro motivo": "Other reason", "Quer contar mais alguma coisa?": "Anything else you'd like to share?", "Enviar pelo WhatsApp": "Send on WhatsApp", "Escreva só o que se sentir à vontade. Detalhes de saúde podem ficar para a consulta, num ambiente reservado.": "Only write what you're comfortable sharing. Health details can wait for the appointment, in a private setting.", "Assim a conversa abre no seu WhatsApp, com a mensagem pronta para enviar:": "This is how the chat opens on your WhatsApp, with the message ready to send:", "Conta comercial": "Business account", "Hoje": "Today", "As mensagens e ligações são protegidas com a criptografia de ponta a ponta.": "Messages and calls are end-to-end encrypted.", "É só tocar em enviar. A Dra. Andrea responde para combinar o melhor dia e horário.": "Just tap send. Dr. Andrea replies to set the best day and time.", "Onde e como": "Where and how", "é o atendimento.": "appointments work.", "Consultas com hora marcada no Rio de Janeiro. Se tiver qualquer dúvida antes de agendar, é só chamar no WhatsApp.": "Appointments by booking in Rio de Janeiro. If you have any questions before booking, just message on WhatsApp.", "Consultório": "Office", "Horários": "Hours", "Segunda a sexta, das 9h às 18h": "Monday to Friday, 9 am to 6 pm", "Sábado, das 9h às 12h": "Saturday, 9 am to 12 pm", "Particular, com recibo para reembolso do plano": "Private pay, with a receipt for plan reimbursement", "Presencial e online": "In person and online", "Endereço, horários e formas de atendimento são exemplos desta prévia.": "Address, hours and appointment types are examples in this preview.", "Dra. Andrea Salomão · Médica · CRM-RJ 120923-0": "Dr. Andrea Salomão · Physician · CRM-RJ 120923-0", "© 2026 Todos os direitos reservados.": "© 2026 All rights reserved.", "As informações deste site têm caráter educativo e não substituem a consulta médica. Prévia criada pela Verbinden para avaliação.": "The information on this website is educational and does not replace a medical appointment. Preview created by Verbinden for review.", "Foto da Dra. Andrea Salomão. Toque para abrir.": "Photo of Dr. Andrea Salomão. Tap to open.", "Dra. Andrea Salomão": "Dr. Andrea Salomão", "Dra. Andrea Salomão recebendo uma moção na Câmara de São João de Meriti": "Dr. Andrea Salomão receiving an honor at the São João de Meriti City Council", "Dra. Andrea Salomão na ação de Outubro Rosa": "Dr. Andrea Salomão at the Pink October event", "Dra. Andrea Salomão em capacitação com o Dr. Jadson Lener": "Dr. Andrea Salomão in training with Dr. Jadson Lener", "Publicações da Dra. Andrea": "Dr. Andrea's posts", "Dra. Andrea Salomão falando no palco do 50º Congresso da SGORJ": "Dr. Andrea Salomão speaking on stage at the 50th SGORJ Congress", "Publicação sobre cuidados com a região íntima": "Post about intimate area care", "Publicação sobre a nova duração do implante contraceptivo": "Post about the new duration of the contraceptive implant", "Publicação anterior": "Previous post", "Próxima publicação": "Next post", "Escreva do seu jeito: uma dúvida, o melhor dia para você, o que estiver no seu coração.": "Write it your way: a question, the best day for you, whatever is on your mind.", "Vídeo de apresentação da Dra. Andrea Salomão": "Dr. Andrea Salomão's introduction video", "Fechar vídeo": "Close video", "Dra. Andrea Salomão, voltar ao início": "Dr. Andrea Salomão, back to top", "Andrea Salomão: saúde feminina, sexualidade e bem-estar": "Andrea Salomão: women's health, sexuality and well-being", "Dra. Andrea Salomão | Médica | Saúde da mulher no Rio de Janeiro": "Dr. Andrea Salomão | Physician | Women's health in Rio de Janeiro", "Idioma": "Language"};
+    var PT = {};
+    Object.keys(EN).forEach(function (k) { PT[EN[k]] = k; });
+    var attrs = ["placeholder", "aria-label", "alt", "data-legenda", "title"];
+    function norm(t) { return t.replace(/\s+/g, " ").trim(); }
+    function nosTexto() {
+      var lista = [];
+      var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: function (n) {
+        if (n.parentElement.closest("script,style,svg,#previa-msg")) return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      } });
+      while (w.nextNode()) lista.push(w.currentNode);
+      return lista;
+    }
+    function aplicar(novo) {
+      var dic = novo === "en" ? EN : PT;
+      nosTexto().forEach(function (n) {
+        var t = dic[norm(n.nodeValue)];
+        if (!t) return;
+        var m = n.nodeValue.match(/^(\s*)[\s\S]*?(\s*)$/);
+        n.nodeValue = m[1] + t + m[2];
+      });
+      document.querySelectorAll("[placeholder],[aria-label],[alt],[data-legenda],[title]").forEach(function (el) {
+        attrs.forEach(function (a) {
+          if (!el.hasAttribute(a)) return;
+          var k = "data-pt-" + a;
+          if (!el.hasAttribute(k)) el.setAttribute(k, el.getAttribute(a));
+          var orig = el.getAttribute(k);
+          el.setAttribute(a, novo === "en" && EN[norm(orig)] ? EN[norm(orig)] : orig);
+        });
+      });
+      if (!document.documentElement.hasAttribute("data-pt-title")) document.documentElement.setAttribute("data-pt-title", document.title);
+      var tituloPt = document.documentElement.getAttribute("data-pt-title");
+      document.title = novo === "en" && EN[tituloPt] ? EN[tituloPt] : tituloPt;
+      document.documentElement.lang = novo === "en" ? "en" : "pt-BR";
+      document.querySelectorAll(".idioma button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-lang") === novo ? "true" : "false"); });
+      window.__idioma = novo;
+      document.dispatchEvent(new CustomEvent("idioma"));
+      try { localStorage.setItem("idioma", novo); } catch (e) {}
+    }
+    document.querySelectorAll(".idioma button").forEach(function (b) { b.addEventListener("click", function () { aplicar(b.getAttribute("data-lang")); }); });
+    var inicial = new URLSearchParams(location.search).get("lang");
+    if (!inicial) { try { inicial = localStorage.getItem("idioma"); } catch (e) {} }
+    window.__idioma = "pt";
+    if (inicial === "en") aplicar("en");
   })();
 </script>
 </body>
