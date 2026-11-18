@@ -431,12 +431,12 @@
   .linha-tempo li::before { content: none; }
   .linha-tempo li h3, .linha-tempo li p { grid-column: 2; }
   .linha-tempo li h3 { margin: 6px 0 4px; font-family: var(--display); font-weight: 500; font-size: 1.55rem; letter-spacing: 0; }
-  .passo-ic { grid-row: 1 / span 2; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--rose); color: var(--cobre); border: 1px solid var(--cobre); transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, transform 0.5s ease; transition-delay: calc(var(--i) * 0.38s + 0.15s); }
+  .passo-ic { grid-row: 1 / span 2; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--rose); color: var(--cobre); border: 1px solid var(--cobre); transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, transform 0.5s ease; transition-delay: calc(var(--i) * 0.9s + 0.2s); }
   .passo-ic svg { width: 24px; height: 24px; }
   /* trilho e preenchimento: vertical no celular */
   .linha-tempo::before, .linha-tempo::after { content: ""; position: absolute; left: 27.5px; top: 28px; bottom: var(--fim, 28px); width: 1px; }
   .linha-tempo::before { background: var(--rose-forte); }
-  .linha-tempo::after { background: var(--cobre); transform-origin: top center; transition: transform 1.5s cubic-bezier(.45, 0, .2, 1); }
+  .linha-tempo::after { background: var(--cobre); transform-origin: top center; transition: transform 3.2s cubic-bezier(.45, 0, .2, 1); }
   /* estado antes de aparecer (só quando o JS está ativo) */
   .linha-tempo.anima::after { transform: scaleY(0); }
   .linha-tempo.anima .passo-ic { background: var(--creme); color: var(--tinta-suave); border-color: var(--rose-forte); transform: scale(0.92); }
@@ -454,6 +454,188 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .linha-tempo::after, .passo-ic { transition: none; }
+  }
+  /* Teste: símbolo do WhatsApp flutuante no rosé claro da logo */
+  .zap-fixo { color: var(--rose-claro); }
+  /* Chamada do Instagram com o mesmo ícone do cartão de contato */
+  .seguir { display: inline-flex; align-items: center; gap: 12px; margin-top: 16px; font-weight: 400; color: var(--tinta); }
+  .seguir .info-ic { width: 24px; height: 24px; display: grid; place-items: center; background: none; color: var(--cobre); flex: none; }
+  .seguir { gap: 10px; }
+  .seguir .info-ic svg { width: 20px; height: 20px; }
+  .seguir > span { text-align: left; }
+  .seguir a { color: var(--cobre-escuro); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+  .linha-tempo.sem-transicao::after, .linha-tempo.sem-transicao .passo-ic { transition: none !important; }
+
+  /* Foto do topo: abre como a capa de um livro (passar o mouse, tocar ou Enter) */
+  .retrato { position: relative; overflow: visible; perspective: 1400px; cursor: pointer; }
+  .retrato-verso, .retrato .retrato-capa { position: absolute; inset: 0; border-radius: 999px 999px 18px 18px; }
+  .retrato-verso { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 0 10% 0 26%; background: var(--rose); text-align: center; }
+  .retrato-verso img { width: auto; height: 34%; }
+  .retrato-verso p { font-family: var(--display); font-style: italic; font-weight: 500; font-size: clamp(1.05rem, 2.2vw, 1.5rem); line-height: 1.15; color: var(--cobre-escuro); }
+  .retrato-verso span { font-style: normal; color: var(--cobre); }
+  .retrato .retrato-capa { width: 100%; height: 100%; object-fit: cover; transform-origin: left center; transition: transform 0.9s cubic-bezier(.3, .7, .2, 1), box-shadow 0.9s ease, filter 0.6s ease; box-shadow: 0 0 0 rgba(42, 37, 34, 0); backface-visibility: hidden; }
+  .retrato:hover .retrato-capa, .retrato.aberto .retrato-capa { filter: blur(6px) saturate(0.9); transform: rotateY(-76deg); box-shadow: 14px 0 28px rgba(42, 37, 34, 0.22); }
+  .retrato:focus-visible { outline: 2px solid var(--cobre); outline-offset: 9px; }
+  @media (hover: none) { .retrato:hover .retrato-capa { transform: none; box-shadow: none; filter: none; } .retrato.aberto .retrato-capa { filter: blur(6px) saturate(0.9); transform: rotateY(-76deg); box-shadow: 14px 0 28px rgba(42, 37, 34, 0.22); } }
+  @media (prefers-reduced-motion: reduce) { .retrato .retrato-capa { transition: none; } }
+
+  /* 2. Botão Enviar pelo WhatsApp: faixa inclinada varre o botão ao passar o mouse */
+  .botao.enviar { position: relative; overflow: hidden; isolation: isolate; }
+  .botao.enviar::before { content: ""; position: absolute; z-index: -1; top: 0; bottom: 0; left: -40px; width: 0; background: var(--cobre-escuro); transform: skewX(35deg); transition: width 0.55s cubic-bezier(.4, 0, .2, 1); }
+  .botao.enviar:hover::before, .botao.enviar:focus-visible::before { width: 160%; }
+  .botao.enviar:hover { background: var(--cobre); }
+  @media (prefers-reduced-motion: reduce) { .botao.enviar::before { transition: none; } }
+
+  /* Sobre: os três pontos viram painéis com foto que abrem (computador e tablet) */
+  .pontos .painel-foto, .pontos .painel-curto { display: none; }
+  .pontos li:focus-visible { outline: 2px solid var(--cobre); outline-offset: 4px; }
+  @media (min-width: 820px) {
+    .sobre .faixa { grid-template-columns: 1fr 1.05fr; align-items: center; }
+    .sobre ul.pontos { padding-top: 0; display: flex; gap: 10px; height: 440px; }
+    .pontos li { position: relative; flex: 1; min-width: 0; overflow: hidden; border-radius: 20px; background: var(--escuro); cursor: pointer; display: block; transition: flex 0.7s cubic-bezier(.3, .7, .2, 1); }
+    .pontos .painel-foto { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(.3, .7, .2, 1), filter 0.7s ease; filter: saturate(0.85) brightness(0.8); }
+    .pontos li::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(42, 37, 34, 0) 40%, rgba(42, 37, 34, 0.78) 100%); }
+    .pontos li > svg { display: none; }
+    .pontos .painel-curto { display: block; position: absolute; z-index: 1; left: 50%; bottom: 26px; transform: translateX(-50%) rotate(180deg); writing-mode: vertical-rl; font-family: var(--display); font-style: italic; font-size: 1.7rem; color: var(--creme); white-space: nowrap; transition: opacity 0.35s ease; }
+    .pontos .painel-texto { position: absolute; z-index: 1; left: 24px; right: 24px; bottom: 24px; font-family: var(--display); font-size: 1.55rem; line-height: 1.15; font-weight: 500; color: var(--creme); opacity: 0; transform: translateY(10px); transition: opacity 0.4s ease, transform 0.5s ease; }
+  }
+  @media (prefers-reduced-motion: reduce) { .pontos li, .pontos .painel-foto, .pontos .painel-texto { transition: none; } }
+
+  /* Dentro e fora do consultório */
+  .trajetoria { padding: 72px 0; }
+  .trajetoria .apoio { margin-top: 14px; max-width: 52ch; color: var(--tinta-suave); }
+  .trajetoria-grade { margin-top: 36px; display: grid; gap: 28px; }
+  .trajetoria figure { margin: 0; }
+  .trajetoria-foto { overflow: hidden; border-radius: 20px; aspect-ratio: 4 / 3; background: var(--rose); }
+  .trajetoria-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(.3, .7, .2, 1); }
+  .trajetoria figure:hover .trajetoria-foto img { transform: scale(1.04); }
+  .trajetoria figcaption { margin-top: 16px; color: var(--tinta-suave); max-width: 40ch; }
+  .trajetoria figcaption strong { display: block; margin-bottom: 4px; font-family: var(--display); font-weight: 500; font-size: 1.5rem; color: var(--tinta); }
+  @media (min-width: 820px) {
+    .trajetoria { padding: 120px 0; }
+    .trajetoria-grade { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .trajetoria-foto { aspect-ratio: 4 / 5; }
+  }
+  @media (prefers-reduced-motion: reduce) { .trajetoria-foto img { transition: none; } }
+
+  /* Painel aberto com a mesma proporção da foto: ela aparece inteira, sem corte */
+  @media (min-width: 820px) {
+    .sobre .faixa { grid-template-columns: 1fr; gap: 40px; }
+    .sobre ul.pontos { height: 400px; width: 100%; max-width: 640px; justify-content: flex-start; }
+    .pontos li { flex: 0 0 64px; transition: flex-basis 0.7s cubic-bezier(.3, .7, .2, 1); }
+    .pontos .painel-texto { font-size: 1.35rem; left: 18px; right: 18px; bottom: 18px; }
+  }
+  @media (min-width: 1100px) {
+    .sobre .faixa { grid-template-columns: minmax(0, 1fr) 640px; gap: 56px; align-items: center; }
+  }
+
+  /* Painel aberto controlado por classe: abre ao passar o mouse ou focar e fica aberto até outro ser escolhido */
+  @media (min-width: 820px) {
+    .pontos li.aberto { flex: 0 0 var(--larg); }
+    .pontos li.aberto .painel-foto { filter: none; }
+    .pontos li.aberto .painel-curto { opacity: 0; }
+    .pontos li.aberto .painel-texto { opacity: 1; transform: none; transition-delay: 0.25s; }
+  }
+
+  /* Painel fechado: clarear ao passar o mouse indica que dá para clicar */
+  @media (min-width: 820px) {
+    .pontos li:not(.aberto):hover .painel-foto { filter: saturate(0.95) brightness(0.95); }
+    .pontos li:not(.aberto):hover .painel-curto { color: var(--rose-claro); }
+  }
+
+  /* cabe o painel horizontal da palestra (548 px) com os outros dois fechados */
+  @media (min-width: 820px) { .sobre ul.pontos { max-width: 720px; } }
+  @media (min-width: 1100px) { .sobre .faixa { grid-template-columns: minmax(0, 1fr) 720px; gap: 48px; } }
+
+  /* painéis encostados à direita, com mais respiro do texto */
+  @media (min-width: 820px) { .sobre ul.pontos { justify-content: flex-end; margin-left: auto; } }
+  @media (min-width: 1100px) { .sobre .faixa { gap: 80px; } }
+
+  /* Prévia da conversa no WhatsApp (modo escuro), dentro de um celular */
+  .zap-mock { align-self: start; text-align: center; }
+  .zap-legenda { margin: 0 auto 16px; max-width: 34ch; color: var(--tinta-suave); }
+  .zap-celular { width: min(100%, 310px); }
+  .zap-celular::before { top: 19px; width: 70px; height: 18px; margin-left: -35px; }
+  .zap-tela { position: relative; height: 560px; border-radius: 36px; overflow: hidden; display: flex; flex-direction: column; background: #0b141a; color: #e9edef; text-align: left; font-family: Roboto, "Segoe UI", system-ui, sans-serif; }
+  .zap-status { display: flex; justify-content: space-between; align-items: center; padding: 12px 22px 0 26px; height: 40px; font-size: 0.72rem; font-weight: 600; }
+  .zap-sinais { display: flex; align-items: flex-end; gap: 2px; }
+  .zap-sinais i { width: 3px; background: #e9edef; border-radius: 1px; }
+  .zap-sinais i:nth-child(1) { height: 5px; } .zap-sinais i:nth-child(2) { height: 7px; } .zap-sinais i:nth-child(3) { height: 9px; }
+  .zap-sinais b { margin-left: 5px; width: 18px; height: 9px; border: 1.5px solid #e9edef; border-radius: 3px; background: linear-gradient(90deg, #e9edef 70%, transparent 70%); background-clip: content-box; padding: 1px; }
+  .zap-topo { display: flex; align-items: center; gap: 8px; padding: 8px 10px 10px 8px; background: #0b141a; border-bottom: 1px solid #1f2c33; }
+  .zap-topo > svg { flex: none; width: 20px; height: 20px; }
+  .zap-avatar { flex: none; width: 34px; height: 34px; border-radius: 50%; background: #a0b49d; display: grid; place-items: center; overflow: hidden; }
+  .zap-avatar img { height: 26px; width: auto; }
+  .zap-nome { flex: 1; min-width: 0; }
+  .zap-nome strong { display: block; font-size: 0.86rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .zap-nome span { display: block; font-size: 0.7rem; color: #8696a0; }
+  .zap-acoes { display: flex; gap: 12px; }
+  .zap-acoes svg { width: 17px; height: 17px; }
+  .zap-chat { flex: 1; min-height: 110px; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 14px 16px; background-color: #0b141a; background-image: radial-gradient(rgba(134, 150, 160, 0.13) 1px, transparent 1.3px), radial-gradient(rgba(134, 150, 160, 0.08) 1px, transparent 1.3px); background-size: 18px 18px, 18px 18px; background-position: 0 0, 9px 9px; }
+  .zap-dia { padding: 4px 10px; border-radius: 7px; background: #182229; font-size: 0.7rem; color: #8696a0; }
+  .zap-aviso { padding: 7px 10px; border-radius: 8px; background: #182229; font-size: 0.68rem; line-height: 1.35; color: #ffd279; text-align: center; }
+  .zap-aviso svg { display: inline; width: 9px; height: 9px; vertical-align: -1px; }
+  .zap-barra { display: flex; align-items: flex-end; gap: 6px; padding: 8px 8px 16px; background: #0b141a; }
+  .zap-campo { flex: 1; min-width: 0; display: flex; align-items: flex-end; gap: 8px; padding: 9px 12px; border-radius: 22px; background: #1f2c34; }
+  .zap-campo svg { flex: none; width: 20px; height: 20px; color: #8696a0; margin-bottom: 1px; }
+  .zap-campo span { flex: 1; min-width: 0; max-height: 17.5em; overflow: hidden; font-size: 0.82rem; line-height: 1.35; color: #e9edef; white-space: pre-line; }
+  .zap-enviar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #0b141a; display: grid; place-items: center; }
+  .zap-enviar svg { width: 18px; height: 18px; margin-left: 2px; }
+  .zap-mock .conversa-nota { margin: 16px auto 0; max-width: 34ch; }
+  @media (min-width: 820px) { .zap-mock { position: sticky; top: 96px; } }
+  .dados-exemplo { grid-column: 1 / -1; margin-top: -20px; font-size: 0.82rem; font-style: italic; color: var(--tinta-suave); text-align: right; }
+  @media (min-width: 820px) { .onde .faixa { row-gap: 14px; } .dados-exemplo { margin-top: 0; } }
+
+  /* Vídeo de apresentação: miniatura no Sobre e janela com o vídeo */
+  .video-gatilho { margin-top: 28px; display: flex; align-items: center; gap: 16px; padding: 10px 18px 10px 10px; border: 1px solid var(--rose-forte); border-radius: 18px; background: var(--creme); color: var(--tinta); font: inherit; text-align: left; cursor: pointer; transition: border-color 0.25s ease, background-color 0.25s ease; }
+  .video-gatilho:hover { border-color: var(--cobre); background: #fff; }
+  .video-gatilho:focus-visible { outline: 3px solid var(--cobre); outline-offset: 3px; }
+  .video-mini { position: relative; flex: none; width: 64px; aspect-ratio: 9 / 16; border-radius: 12px; overflow: hidden; }
+  .video-mini img { width: 100%; height: 100%; object-fit: cover; }
+  .video-play { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(42, 37, 34, 0.25); color: #fff; }
+  .video-play svg { width: 24px; height: 24px; filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.4)); transition: transform 0.25s ease; }
+  .video-gatilho:hover .video-play svg { transform: scale(1.12); }
+  .video-texto strong { display: block; font-family: var(--display); font-weight: 500; font-size: 1.35rem; line-height: 1.15; }
+  .video-texto span { display: block; margin-top: 2px; font-size: 0.9rem; color: var(--tinta-suave); max-width: 30ch; }
+  .video-dialogo { width: min(92vw, 400px); max-height: 92vh; padding: 0; border: 0; border-radius: 24px; background: #000; overflow: visible; }
+  .video-dialogo::backdrop { background: rgba(26, 23, 21, 0.78); backdrop-filter: blur(3px); }
+  .video-dialogo video { display: block; width: 100%; max-height: 92vh; aspect-ratio: 9 / 16; border-radius: 24px; background: #000; }
+  .video-fechar { position: absolute; z-index: 1; top: -14px; right: -14px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--creme); color: var(--tinta); display: grid; place-items: center; cursor: pointer; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3); }
+  .video-fechar svg { width: 18px; height: 18px; }
+  .video-fechar:focus-visible { outline: 3px solid var(--rose-claro); outline-offset: 2px; }
+  @media (max-width: 480px) { .video-fechar { top: 8px; right: 8px; } }
+
+  /* janela do vídeo centralizada (o reset geral zera a margem automática do dialog) */
+  .video-dialogo { margin: auto; }
+  /* painéis um pouco mais baixos para o texto do Sobre respirar */
+  @media (min-width: 820px) { .sobre ul.pontos { height: 360px; max-width: 650px; } }
+  @media (min-width: 1100px) { .sobre .faixa { grid-template-columns: minmax(0, 1fr) 650px; gap: 64px; } }
+
+  /* Temas da consulta: útero em traço fino ao fundo e um ícone por tema */
+  .cuidados { position: relative; overflow: hidden; isolation: isolate; }
+  .cuidados .faixa { position: relative; z-index: 1; }
+  .cuidados-arte { position: absolute; z-index: 0; width: 620px; max-width: 120%; right: -150px; top: 50%; transform: translateY(-50%); color: var(--rose-claro); opacity: 0.08; pointer-events: none; }
+  .lista h3 { display: flex; align-items: center; gap: 14px; }
+  .tema-ic { flex: none; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(230, 196, 199, 0.35); display: grid; place-items: center; color: var(--rose-claro); }
+  .tema-ic svg { width: 24px; height: 24px; }
+  @media (min-width: 820px) { .cuidados-arte { width: 700px; right: -140px; opacity: 0.075; } }
+
+  /* No PC os painéis ficam um pouco maiores (mesma proporção das fotos) */
+  @media (min-width: 1100px) {
+    .sobre .faixa { grid-template-columns: minmax(0, 1fr) 700px; gap: 56px; }
+    .sobre ul.pontos { height: 400px; max-width: 700px; }
+    .pontos li.aberto { flex-basis: calc(var(--larg) * 1.111); }
+  }
+
+  /* Celular: o botão do topo some a partir dos passos da consulta (dali em diante já há botões de agendar) */
+  .topo .botao { transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.25s ease; }
+  @media (max-width: 819px) {
+    .topo.sem-botao .botao { opacity: 0; transform: translateY(-6px); pointer-events: none; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; }
+  }
+
+  .zap-fixo { transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.25s ease; }
+  @media (max-width: 819px) {
+    .sem-zap-fixo .zap-fixo { opacity: 0; transform: translateY(10px); pointer-events: none; visibility: hidden; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s; }
   }
 </style>
 </head>
@@ -477,7 +659,7 @@
 <main id="inicio">
   <section class="abertura">
     <div class="faixa">
-      <div class="retrato"><img src="assets/retrato.jpg" alt="Dra. Andrea Salomão" width="720" height="900"></div>
+      <div class="retrato" id="retrato" tabindex="0" aria-label="Foto da Dra. Andrea Salomão. Toque para abrir."><div class="retrato-verso" aria-hidden="true"><img src="assets/logo-simbolo.png" alt="" width="220" height="360"><p>Que bom ter<br>você aqui <span>♡</span></p></div><img class="retrato-capa" src="assets/retrato.jpg" alt="Dra. Andrea Salomão" width="720" height="900"></div>
       <div>
         <h1>Apaixonada pela <em>saúde da mulher.</em></h1>
         <p>Saúde feminina, sexualidade e bem-estar, com cuidado individual e personalizado.</p>
@@ -499,28 +681,54 @@
         <h2>Cuidado que começa <em>pela escuta.</em></h2>
         <p>Sou a Dra. Andrea Salomão, médica dedicada à saúde da mulher: saúde íntima, contracepção, sexualidade e bem-estar.</p>
         <p>Acredito em cuidado individual e personalizado, com informação clara para que cada mulher faça escolhas seguras sobre o próprio corpo.</p>
+        <button type="button" class="video-gatilho" id="abrir-video">
+          <span class="video-mini"><img src="assets/apresentacao-capa.jpg" alt="" width="720" height="1280"><span class="video-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span></span>
+          <span class="video-texto"><strong>Assista à apresentação</strong><span>A Dra. Andrea conta, em 40 segundos, como é o trabalho dela.</span></span>
+        </button>
       </div>
-      <ul>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Atendimento individual e personalizado</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Informação clara e escolhas seguras</span></li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span>Participação no 50º Congresso da SGORJ, em 2026</span></li>
+      <ul class="pontos">
+        <li tabindex="0" style="--larg:272px"><img class="painel-foto" src="assets/atendimento.jpg" alt="" loading="lazy" style="object-position:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span class="painel-curto" aria-hidden="true">Atendimento</span><span class="painel-texto">Atendimento individual e personalizado</span></li>
+        <li tabindex="0" style="--larg:494px"><img class="painel-foto" src="assets/outubro-rosa-palestra.jpg" alt="" loading="lazy" style="object-position:center"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span class="painel-curto" aria-hidden="true">Informação</span><span class="painel-texto">Informação clara e escolhas seguras</span></li>
+        <li tabindex="0" style="--larg:270px"><img class="painel-foto" src="assets/congresso-sgorj.jpg" alt="" loading="lazy" style="object-position:center 55%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg><span class="painel-curto" aria-hidden="true">Congresso</span><span class="painel-texto">Participação no 50º Congresso da SGORJ, em 2026</span></li>
       </ul>
+    </div>
+  </section>
+
+  <section class="trajetoria" id="trajetoria">
+    <div class="faixa">
+      <h2>Dentro e fora <em>do consultório.</em></h2>
+      <p class="apoio">Além das consultas, a Dra. Andrea leva informação sobre saúde da mulher para outros espaços e segue aprendendo.</p>
+      <div class="trajetoria-grade">
+        <figure>
+          <div class="trajetoria-foto"><img src="assets/mocao-camara.jpg" alt="Dra. Andrea Salomão recebendo uma moção na Câmara de São João de Meriti" loading="lazy"></div>
+          <figcaption><strong>Moção no Outubro Rosa</strong>Reconhecimento na Câmara de São João de Meriti pelo trabalho no CPDO e pelo cuidado com a saúde das mulheres.</figcaption>
+        </figure>
+        <figure>
+          <div class="trajetoria-foto"><img src="assets/outubro-rosa-andrea.jpg" alt="Dra. Andrea Salomão na ação de Outubro Rosa" loading="lazy" style="object-position:center 0%"></div>
+          <figcaption><strong>Ação de Outubro Rosa</strong>Um dia para lembrar pacientes e colaboradoras da importância do rastreio e do diagnóstico precoce do câncer de mama.</figcaption>
+        </figure>
+        <figure>
+          <div class="trajetoria-foto"><img src="assets/capacitacao.jpg" alt="Dra. Andrea Salomão em capacitação com o Dr. Jadson Lener" loading="lazy"></div>
+          <figcaption><strong>Aprendizado contínuo</strong>Capacitação ao lado do Dr. Jadson Lener, aprendendo cada detalhe com um olhar atencioso.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   <section class="cuidados" id="cuidados">
+    <svg class="cuidados-arte" aria-hidden="true" focusable="false" viewBox="20 40 200 175" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M120 64C140 64 154 70 154 82C154 104 142 122 132 132C128 136 127 142 127 150V176C127 180 113 180 113 176V150C113 142 112 136 108 132C98 122 86 104 86 82C86 70 100 64 120 64Z"/><path d="M101 80C112 77 128 77 139 80C135 96 127 110 120 121C113 110 105 96 101 80Z"/><path d="M88 77C76 68 61 64 49 69C39 73 35 84 42 92"/><path d="M42 92C38 93 34 92 32 89M42 92C40 96 36 98 33 98M42 92C43 96 41 100 38 102"/><ellipse cx="62" cy="99" rx="10" ry="7" transform="rotate(-20 62 99)"/><path d="M71 96C77 94 82 90 87 86"/><g transform="translate(240 0) scale(-1 1)"><path d="M88 77C76 68 61 64 49 69C39 73 35 84 42 92"/><path d="M42 92C38 93 34 92 32 89M42 92C40 96 36 98 33 98M42 92C43 96 41 100 38 102"/><ellipse cx="62" cy="99" rx="10" ry="7" transform="rotate(-20 62 99)"/><path d="M71 96C77 94 82 90 87 86"/></g><path d="M118 178C98 192 66 190 46 160"/><path transform="translate(103.3 184.8) rotate(127) scale(0.8)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(94.4 186.3) rotate(214) scale(0.85)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(83.6 185.8) rotate(-209) scale(0.95)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(74.2 183.3) rotate(-122) scale(0.95)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(63.6 177.9) rotate(-185) scale(0.9)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(55.0 171.0) rotate(-98) scale(0.8)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><g transform="translate(240 0) scale(-1 1)"><path d="M118 178C98 192 66 190 46 160"/><path transform="translate(103.3 184.8) rotate(127) scale(0.8)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(94.4 186.3) rotate(214) scale(0.85)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(83.6 185.8) rotate(-209) scale(0.95)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(74.2 183.3) rotate(-122) scale(0.95)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(63.6 177.9) rotate(-185) scale(0.9)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/><path transform="translate(55.0 171.0) rotate(-98) scale(0.8)" d="M0 0C5-6 15-6 21 0C15 6 5 6 0 0ZM2 0H17"/></g><g transform="translate(44 152) scale(1.15)"><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(0)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(72)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(144)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(216)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(288)"/><circle r="1.8"/></g><g transform="translate(196 152) scale(1.15)"><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(0)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(72)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(144)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(216)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(288)"/><circle r="1.8"/></g><g transform="translate(70 196) scale(0.8)"><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(0)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(72)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(144)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(216)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(288)"/><circle r="1.8"/></g><g transform="translate(170 196) scale(0.8)"><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(0)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(72)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(144)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(216)"/><ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(288)"/><circle r="1.8"/></g></svg>
     <div class="faixa">
       <h2>Os temas <em>da consulta.</em></h2>
       <ul class="lista">
-        <li><h3>Saúde íntima</h3><p>A pele da vulva também merece atenção, entendendo o que o seu corpo realmente precisa, de forma individual e personalizada.</p></li>
-        <li><h3>Contracepção</h3><p>Orientação para escolher e acompanhar o método, incluindo o implante contraceptivo e os prazos de troca.</p></li>
-        <li><h3>Sexualidade</h3><p>Um espaço para tirar dúvidas e falar do que incomoda, com informação e escolhas seguras.</p></li>
-        <li><h3>Bem-estar</h3><p>Cuidado que olha para a rotina e para cada fase da vida da mulher.</p></li>
+        <li><h3><span class="tema-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5.5c3.4 0 5 .8 5 2.4 0 2.6-1.6 4.6-2.8 5.6-.5.4-.7 1-.7 1.8v3.2h-3v-3.2c0-.8-.2-1.4-.7-1.8C8.6 12.5 7 10.5 7 7.9c0-1.6 1.6-2.4 5-2.4z"/><path d="M7.3 7.2C5.8 6.2 4 6 3.2 7c-.6.8-.3 1.8.5 2.2M16.7 7.2c1.5-1 3.3-1.2 4.1-.2.6.8.3 1.8-.5 2.2"/></svg></span><span>Saúde íntima</span></h3><p>A pele da vulva também merece atenção, entendendo o que o seu corpo realmente precisa, de forma individual e personalizada.</p></li>
+        <li><h3><span class="tema-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="3"/><circle cx="9" cy="8.5" r="1.4"/><circle cx="15" cy="8.5" r="1.4"/><circle cx="9" cy="12.5" r="1.4"/><circle cx="15" cy="12.5" r="1.4"/><circle cx="9" cy="16.5" r="1.4"/><circle cx="15" cy="16.5" r="1.4"/></svg></span><span>Contracepção</span></h3><p>Orientação para escolher e acompanhar o método, incluindo o implante contraceptivo e os prazos de troca.</p></li>
+        <li><h3><span class="tema-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 19.5S4 15.8 4 11.3a3.3 3.3 0 0 1 6-1.9 3.3 3.3 0 0 1 6 1.9c0 4.5-6 8.2-6 8.2z"/><path d="M14.2 7.6a3 3 0 0 1 5.8 1.1c0 2.3-1.7 4.2-3.3 5.5"/></svg></span><span>Sexualidade</span></h3><p>Um espaço para tirar dúvidas e falar do que incomoda, com informação e escolhas seguras.</p></li>
+        <li><h3><span class="tema-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 19.5C9 15 13 10.5 18.5 4.5"/><path d="M9.4 14.8c-2.4-.2-4.1-1.6-4.5-3.9 2.4 0 4.1 1.4 4.5 3.9zM12.4 11.2c-.3-2.4.9-4.4 3.1-5.2.3 2.4-.9 4.3-3.1 5.2zM13.1 12.4c2.3-.7 4.4.1 5.4 2.2-2.3.7-4.4-.1-5.4-2.2z"/></svg></span><span>Bem-estar</span></h3><p>Cuidado que olha para a rotina e para cada fase da vida da mulher.</p></li>
       </ul>
     </div>
   </section>
 
-  <section class="passos">
+  <section class="passos" id="passos">
     <div class="faixa">
       <h2>Da primeira mensagem <em>ao acompanhamento.</em></h2>
       <ol class="linha-tempo" id="linha-tempo">
@@ -562,7 +770,7 @@
       </div>
       <div class="story-rodape">
         <p class="story-legenda" id="story-legenda" aria-live="polite"></p>
-        <a class="seguir" href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">Acompanhar @deiasalomao no Instagram</a>
+        <p class="seguir"><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></span><span>Acompanhe no Instagram: <a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></span></p>
       </div>
     </div>
   </section>
@@ -584,11 +792,11 @@
         </details>
         <details>
           <summary>O atendimento é particular ou por convênio?</summary>
-          <p><span class="pendente">a confirmar com a Dra. Andrea</span></p>
+          <p>O atendimento é particular. Você recebe recibo para pedir reembolso ao seu plano de saúde, se ele oferecer.</p>
         </details>
         <details>
           <summary>Tem consulta online?</summary>
-          <p>Consulte a disponibilidade diretamente pelo WhatsApp.</p>
+          <p>Sim. A consulta pode ser presencial ou online; é só dizer sua preferência na mensagem.</p>
         </details>
       </div>
     </div>
@@ -634,10 +842,28 @@
         </button>
         <p class="aviso">Escreva só o que se sentir à vontade. Detalhes de saúde podem ficar para a consulta, num ambiente reservado.</p>
       </form>
-      <aside class="conversa" aria-live="polite">
-        <small>Sua mensagem vai chegar assim:</small>
-        <div class="balao" id="previa-msg"></div>
-        <p class="conversa-nota">A Dra. Andrea responde pelo WhatsApp para combinar o melhor dia e horário.</p>
+      <aside class="zap-mock" aria-live="polite">
+        <p class="zap-legenda">Assim a conversa abre no seu WhatsApp, com a mensagem pronta para enviar:</p>
+        <div class="celular zap-celular">
+          <div class="zap-tela">
+            <div class="zap-status"><span>9:41</span><span class="zap-sinais"><i></i><i></i><i></i><b></b></span></div>
+            <div class="zap-topo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              <span class="zap-avatar"><img src="assets/logo-simbolo.png" alt=""></span>
+              <div class="zap-nome"><strong>Dra Andrea Salomão</strong><span>Conta comercial</span></div>
+              <span class="zap-acoes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="15" height="18" rx="2"/><circle cx="12.5" cy="10" r="2.5"/><path d="M8.5 17c.6-2 2.1-3 4-3s3.4 1 4 3M3 7v12"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></span>
+            </div>
+            <div class="zap-chat">
+              <span class="zap-dia">Hoje</span>
+              <p class="zap-aviso"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17 10V8a5 5 0 0 0-10 0v2H5v12h14V10zm-8 0V8a3 3 0 0 1 6 0v2z"/></svg> As mensagens e ligações são protegidas com a criptografia de ponta a ponta.</p>
+            </div>
+            <div class="zap-barra">
+              <div class="zap-campo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01"/></svg><span id="previa-msg"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m20.5 11.5-8.3 8.3a5 5 0 0 1-7-7l8.6-8.6a3.3 3.3 0 0 1 4.7 4.7L10 17.4a1.7 1.7 0 0 1-2.4-2.4l7.6-7.6"/></svg></div>
+              <span class="zap-enviar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6l-.01 6.5L15 12 3.39 13.9z"/></svg></span>
+            </div>
+          </div>
+        </div>
+        <p class="conversa-nota">É só tocar em enviar. A Dra. Andrea responde para combinar o melhor dia e horário.</p>
       </aside>
     </div>
   </section>
@@ -650,12 +876,13 @@
         <a class="botao" href="#agendar">Agendar consulta</a>
       </div>
       <ul class="info-cartao">
-        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>Consultório</strong><span class="a-confirmar">Endereço a confirmar</span><span>Rio de Janeiro, RJ</span></div></li>
-        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>Horários</strong><span class="a-confirmar">Dias e horários a confirmar</span></div></li>
-        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><div><strong>Atendimento</strong><span class="a-confirmar">Particular, convênio ou online: a confirmar</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>Consultório</strong><span>Rua das Acácias, 120, sala 305</span><span>Barra da Tijuca, Rio de Janeiro, RJ</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><strong>Horários</strong><span>Segunda a sexta, das 9h às 18h</span><span>Sábado, das 9h às 12h</span></div></li>
+        <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/></svg></span><div><strong>Atendimento</strong><span>Particular, com recibo para reembolso do plano</span><span>Presencial e online</span></div></li>
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg></span><div><strong>WhatsApp</strong><a href="https://wa.me/5521966428116?text=Ol%C3%A1%2C%20Dra.%20Andrea!%20Vim%20pelo%20seu%20site." target="_blank" rel="noopener">(21) 96642-8116</a></div></li>
         <li><span class="info-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg></span><div><strong>Instagram</strong><a href="https://www.instagram.com/deiasalomao/" target="_blank" rel="noopener">@deiasalomao</a></div></li>
       </ul>
+      <p class="dados-exemplo">Endereço, horários e formas de atendimento são exemplos desta prévia.</p>
     </div>
   </section>
 </main>
@@ -663,6 +890,13 @@
 <a class="zap-fixo" href="#agendar" aria-label="Agendar pelo WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 12 2.2a9.8 9.8 0 0 1 0 19.6zm8.4-18.2A11.8 11.8 0 0 0 1.7 17.9L0 24l6.3-1.7A11.8 11.8 0 0 0 24 12c0-3.2-1.2-6.1-3.6-8.4z"/></svg>
 </a>
+
+<dialog class="video-dialogo" id="video-dialogo" aria-label="Vídeo de apresentação da Dra. Andrea Salomão">
+  <button type="button" class="video-fechar" id="fechar-video" aria-label="Fechar vídeo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <video id="video-apresentacao" src="assets/apresentacao.mp4" poster="assets/apresentacao-capa.jpg" controls playsinline preload="none"></video>
+</dialog>
 
 <footer>
   <div class="faixa">
@@ -919,10 +1153,75 @@
     if (!("IntersectionObserver" in window)) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     lt.classList.add("anima");
+    // desenha ao aparecer e repete a cada 20 s enquanto a seção estiver na tela
+    var REPETIR = 20000, relogio = null;
+    function desenhar() {
+      lt.classList.add("sem-transicao");
+      lt.classList.remove("visivel");
+      void lt.offsetWidth;
+      lt.classList.remove("sem-transicao");
+      requestAnimationFrame(function () { lt.classList.add("visivel"); });
+    }
     var obs = new IntersectionObserver(function (es) {
-      if (es[0].isIntersecting) { lt.classList.add("visivel"); obs.disconnect(); }
+      if (es[0].isIntersecting) {
+        if (!lt.classList.contains("visivel")) desenhar();
+        if (!relogio) relogio = setInterval(desenhar, REPETIR);
+      } else { clearInterval(relogio); relogio = null; }
     }, { threshold: 0.45 });
     obs.observe(lt);
+  })();
+
+  // Foto do topo: abre e fecha com toque ou Enter
+  (function () {
+    var r = document.getElementById("retrato");
+    if (!r) return;
+    function alternar() { r.classList.toggle("aberto"); }
+    r.addEventListener("click", alternar);
+    r.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); alternar(); }
+    });
+  })();
+
+  // Painéis do Sobre: um aberto por vez (o primeiro começa aberto)
+  (function () {
+    var itens = document.querySelectorAll(".pontos li");
+    if (!itens.length) return;
+    function abrir(li) { itens.forEach(function (x) { x.classList.toggle("aberto", x === li); }); }
+    itens.forEach(function (li) {
+      li.addEventListener("focus", function () { abrir(li); });
+      li.addEventListener("click", function () { abrir(li); });
+    });
+    abrir(itens[0]);
+  })();
+
+  // Vídeo de apresentação: abre numa janela e para ao fechar
+  (function () {
+    var dlg = document.getElementById("video-dialogo");
+    var video = document.getElementById("video-apresentacao");
+    var abrir = document.getElementById("abrir-video");
+    if (!dlg || !video || !abrir || !dlg.showModal) return;
+    abrir.addEventListener("click", function () { dlg.showModal(); video.play().catch(function () {}); });
+    document.getElementById("fechar-video").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener("close", function () { video.pause(); abrir.focus(); });
+  })();
+
+  // Celular: esconde o "Agendar consulta" do topo a partir da seção dos passos
+  (function () {
+    var topo = document.querySelector(".topo");
+    var passos = document.getElementById("passos");
+    if (!topo || !passos) return;
+    var celular = window.matchMedia("(max-width: 819px)");
+    var pendente = false;
+    function conferir() {
+      pendente = false;
+      var passou = celular.matches && passos.getBoundingClientRect().top <= topo.offsetHeight + 40;
+      topo.classList.toggle("sem-botao", passou);
+      document.documentElement.classList.toggle("sem-zap-fixo", passou);
+    }
+    window.addEventListener("scroll", function () { if (!pendente) { pendente = true; requestAnimationFrame(conferir); } }, { passive: true });
+    window.addEventListener("resize", conferir);
+    conferir();
   })();
 </script>
 </body>
