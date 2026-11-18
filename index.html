@@ -424,6 +424,37 @@
   .zap-fixo { background: #343a31; color: var(--creme); border: 1px solid rgba(246, 242, 236, 0.16); }
   .zap-fixo:hover { background: #2b3028; }
   .zap-fixo svg { width: 28px; height: 28px; }
+
+  /* Passos: linha do tempo que se desenha quando aparece na tela */
+  .linha-tempo { position: relative; margin-top: 44px; display: grid; gap: 30px; }
+  .linha-tempo li { position: relative; z-index: 1; border: 0; padding: 0; display: grid; grid-template-columns: 56px 1fr; column-gap: 18px; align-items: start; }
+  .linha-tempo li::before { content: none; }
+  .linha-tempo li h3, .linha-tempo li p { grid-column: 2; }
+  .linha-tempo li h3 { margin: 6px 0 4px; font-family: var(--display); font-weight: 500; font-size: 1.55rem; letter-spacing: 0; }
+  .passo-ic { grid-row: 1 / span 2; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--rose); color: var(--cobre); border: 1px solid var(--cobre); transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, transform 0.5s ease; transition-delay: calc(var(--i) * 0.38s + 0.15s); }
+  .passo-ic svg { width: 24px; height: 24px; }
+  /* trilho e preenchimento: vertical no celular */
+  .linha-tempo::before, .linha-tempo::after { content: ""; position: absolute; left: 27.5px; top: 28px; bottom: var(--fim, 28px); width: 1px; }
+  .linha-tempo::before { background: var(--rose-forte); }
+  .linha-tempo::after { background: var(--cobre); transform-origin: top center; transition: transform 1.5s cubic-bezier(.45, 0, .2, 1); }
+  /* estado antes de aparecer (só quando o JS está ativo) */
+  .linha-tempo.anima::after { transform: scaleY(0); }
+  .linha-tempo.anima .passo-ic { background: var(--creme); color: var(--tinta-suave); border-color: var(--rose-forte); transform: scale(0.92); }
+  .linha-tempo.anima.visivel::after { transform: none; }
+  .linha-tempo.anima.visivel .passo-ic { background: var(--rose); color: var(--cobre); border-color: var(--cobre); transform: none; }
+  @media (min-width: 820px) {
+    .linha-tempo { grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; }
+    .linha-tempo li { display: block; text-align: center; padding: 0 18px; }
+    .passo-ic { margin: 0 auto 18px; }
+    .linha-tempo li h3 { margin: 0 0 8px; }
+    .linha-tempo li p { max-width: 24ch; margin-inline: auto; }
+    .linha-tempo::before, .linha-tempo::after { left: 12.5%; right: 12.5%; top: 28px; bottom: auto; width: auto; height: 1px; }
+    .linha-tempo::after { transform-origin: left center; }
+    .linha-tempo.anima::after { transform: scaleX(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .linha-tempo::after, .passo-ic { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -492,11 +523,11 @@
   <section class="passos">
     <div class="faixa">
       <h2>Da primeira mensagem <em>ao acompanhamento.</em></h2>
-      <ol>
-        <li><h3>Agendamento</h3><p>Você monta o pedido aqui no site e combina o horário pelo WhatsApp.</p></li>
-        <li><h3>Consulta</h3><p>Conversa sobre o que você sente, sua rotina e seu histórico.</p></li>
-        <li><h3>Plano de cuidado</h3><p>Orientações pensadas para o seu caso, explicadas com clareza.</p></li>
-        <li><h3>Acompanhamento</h3><p>Retornos para ajustar o que for preciso ao longo do tempo.</p></li>
+      <ol class="linha-tempo" id="linha-tempo">
+        <li style="--i:0"><span class="passo-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></span><h3>Agendamento</h3><p>Você conta o que precisa aqui no site e combina o horário pelo WhatsApp.</p></li>
+        <li style="--i:1"><span class="passo-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12a8 8 0 0 1-11.7 7.1L4 20l1-4.3A8 8 0 1 1 20.5 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg></span><h3>Consulta</h3><p>Conversa sobre o que você sente, sua rotina e seu histórico.</p></li>
+        <li style="--i:2"><span class="passo-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="4.5" width="13" height="16" rx="2"/><path d="M9.5 3.5h5v3h-5zM9 11h6M9 14.5h6M9 18h3.5"/></svg></span><h3>Plano de cuidado</h3><p>Orientações pensadas para o seu caso, explicadas com clareza.</p></li>
+        <li style="--i:3"><span class="passo-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20z"/></svg></span><h3>Acompanhamento</h3><p>Retornos para ajustar o que for preciso ao longo do tempo.</p></li>
       </ol>
     </div>
   </section>
@@ -876,6 +907,22 @@
     document.addEventListener("click", function (e) { if (!caixa.contains(e.target)) fechar(false); });
     select.addEventListener("change", atualizar);
     atualizar();
+  })();
+
+  // Linha do tempo: desenha uma vez quando a seção aparece
+  (function () {
+    var lt = document.getElementById("linha-tempo");
+    if (!lt) return;
+    // no celular a linha termina no centro do último círculo
+    function medir() { var ult = lt.lastElementChild; lt.style.setProperty("--fim", (ult.offsetHeight - 28) + "px"); }
+    medir(); window.addEventListener("resize", medir);
+    if (!("IntersectionObserver" in window)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    lt.classList.add("anima");
+    var obs = new IntersectionObserver(function (es) {
+      if (es[0].isIntersecting) { lt.classList.add("visivel"); obs.disconnect(); }
+    }, { threshold: 0.45 });
+    obs.observe(lt);
   })();
 </script>
 </body>
